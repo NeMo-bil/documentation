@@ -21,12 +21,20 @@ User->>App: Ich möchte eine Fahrt buchen
 App->>CB: Lege Buchungsanfrage ab
 loop Subscription für Buchungsanfragen Änderungen
 CB-->>RW: Notification für Buchungsanfragen
+RW-->>+CB: Abfrage Buchungsanfrage
+
+CB->>-RW: Buchungsanfrage
+
+
+activate RW
 RW-->>RW: Berechnung von Routenvorschlägen
-RW->>CB: Lege Routing Vorschläge ab
+RW->>CB: Lege Routenvorschläge ab
+deactivate RW
 end
 
 loop Polling
-App->>CB: Abfrage von Routing Vorschlägen 
+App->>+CB: Abfrage von Routenvorschlägen
+CB->>-App: Nutzerbetreffende Routenvorschläge
 end
 
 App->>User: Vorschläge zur Auswahl präsentieren
@@ -44,7 +52,8 @@ RW-->>RW: Einplanung der Buchung
 end
 
 loop Polling
-App->>CB: Fortlaufende Abfrage von Planänderungen
+App->>+CB: Fortlaufende Abfrage von Planänderungen
+CB->>-App: Nutzerbetreffende Planänderungen
 App->>User: Informierung über Planänderungen
 end
 ```
