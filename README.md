@@ -15,26 +15,35 @@ actor User
 participant App as Nutzeranwendung
 participant CB as Context Broker (FF)
 participant RW as Reisewitz
+participant BX as Base-X Layer
+participant EXDS as External DataSpace
 
 Note right of User: Nutzer ist registriert und eingeloggt
 User->>App: Ich möchte eine Fahrt buchen
 App->>CB: Lege Buchungsanfrage ab
 loop Subscription für Buchungsanfragen Änderungen
 CB-->>RW: Notification für Buchungsanfragen
-RW-->>+CB: Abfrage Buchungsanfrage
+RW->>+CB: Abfrage Buchungsanfrage
 
 CB->>-RW: Buchungsanfrage
 
-
 activate RW
 RW-->>RW: Berechnung von Routenvorschlägen
-RW->>CB: Lege Routenvorschläge ab
+%% Abfrage von Streckenprofil in gegebenem Bereich -> Abgleich des ermittelten Energiebedarfs/Zielzeit
+RW->>CB:Anfrage externer Daten (Verkehrsituation, Streckenprofil)
+CB->>BX:Anfrage externer Daten 
+BX->>EXDS: Anfrage externer Daten 
+EXDS-->>BX: Externe Daten 
+BX-->>CB: Externe Daten 
+CB-->>RW: Externe Daten 
+
+RW-->>CB: Lege Routenvorschläge ab
 deactivate RW
 end
 
 loop Polling
 App->>+CB: Abfrage von Routenvorschlägen
-CB->>-App: Nutzerbetreffende Routenvorschläge
+CB-->>-App: Nutzerbetreffende Routenvorschläge
 end
 
 App->>User: Vorschläge zur Auswahl präsentieren
@@ -42,8 +51,8 @@ User->>App: Vorschlag ausgewählt / Fahrt gebucht
 App->>CB: Lege gewählte Fahrt ab
 
 loop Subscription für Buchungs Änderungen
-CB-->>RW: Notification für Buchung
-RW-->>RW: Einplanung der Buchung
+CB->>RW: Notification für Buchung
+RW->>RW: Einplanung der Buchung
     alt Buchung erfüllbar
             RW->>CB:  Buchung bestätigen
     else Buchung nicht erfüllbar
@@ -53,7 +62,7 @@ end
 
 loop Polling
 App->>+CB: Fortlaufende Abfrage von Planänderungen
-CB->>-App: Nutzerbetreffende Planänderungen
+CB-->>-App: Nutzerbetreffende Planänderungen
 App->>User: Informierung über Planänderungen
 end
 ```
