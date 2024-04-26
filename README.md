@@ -22,16 +22,14 @@ Note right of User: Nutzer ist registriert und eingeloggt
 User->>App: Ich möchte eine Fahrt buchen
 App->>CB: Lege Buchungsanfrage ab
 loop Subscription für Buchungsanfragen Änderungen
-CB-->>RW: Notification für Buchungsanfragen
-RW->>+CB: Abfrage Buchungsanfrage
-
-CB->>-RW: Buchungsanfrage
+CB-->>RW: Notification für Buchungsanfragen mit den relevanten Daten
 
 activate RW
 RW-->>RW: Berechnung von Routenvorschlägen
 %% Abfrage von Streckenprofil in gegebenem Bereich -> Abgleich des ermittelten Energiebedarfs/Zielzeit
+Note right of RW: Wie bekommt RW den Energiebedarf einer Strecke?
 RW->>CB:Anfrage externer Daten (Verkehrsituation, Streckenprofil)
-CB->>BX:Anfrage externer Daten 
+CB-)BX:Anfrage externer Daten 
 BX->>EXDS: Anfrage externer Daten 
 EXDS-->>BX: Externe Daten 
 BX-->>CB: Externe Daten 
