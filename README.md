@@ -40,7 +40,7 @@ CB-->>RW: Notification für Buchungsanfragen mit den relevanten Daten
 
 activate RW
 Note right of RW: Wie bekommt RW den Energiebedarf einer Strecke? Wird sie überhaupt benötigt?
-RW-->>RW: Berechnung von Routenvorschlägen
+RW-->>RW: Berechnung von Routenvorschlägen ( mit Informationen zu erwarteter Strecke, Kosten(?), Konvoi )
 %% Abfrage von Streckenprofil in gegebenem Bereich -> Abgleich des ermittelten Energiebedarfs/Zielzeit
 
 RW-->>CB: Lege Routenvorschläge ab
