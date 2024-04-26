@@ -73,7 +73,7 @@ App->>User: Informierung über Planänderungen
 end
 ```
 
-## Fahrtantritt&Fahrt 
+## Fahrtantritt&Fahrt ( Ohne Konvoi )
 
 ```mermaid
 sequenceDiagram
@@ -118,7 +118,11 @@ end
 Note right of Cab: Cab ist am Zielort angekommen
 
 Cab->>Cab: Cab parkt und ermöglicht das entriegeln der Türen
-User->>App: Nutzer entriegelt Türe
-App->>CB: Türentriegelung
-CB->>Cab: Türentriegelung
+User->>Cab: Nutzer entriegelt Türe
+Note left of User: Nutzer steigt aus, lädt aus und schließt die Türe
+
+Cab->>CB: Fahrzeug fahrbereit
+Note right of RW: Über den Sync wird RW über freies Cab informiert
+RW->>CB: Cab soll Stehen bleiben oder ins Depot oder zu einem Auftrag oder...
+CB->>Cab: Fahraufforderung
 ```
