@@ -72,3 +72,53 @@ CB-->>-App: Nutzerbetreffende Planänderungen
 App->>User: Informierung über Planänderungen
 end
 ```
+
+## Fahrtantritt&Fahrt 
+
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%% technische Teilnehmer/Componenten definieren
+participant RW as Operative Planung (Reisewitz)
+participant CB as Context Broker (FF)
+participant Cab
+participant App as Nutzeranwendung
+actor User
+%%participant BX as Base-X Layer (DLR)
+%%participant EXDS as External DataSpace
+Note left of RW: Anfahrt steht bald an und ein Cab wurde für die Erfüllung ausgewählt
+RW->>CB: Spezifisches Cab bekommt Pickup Location
+CB->>Cab: Spezifisches Cab bekommt Pickup Location
+Note left of Cab: Cab macht sich auf den Weg zum Kunden
+loop Cab meldet seine Daten (Position, Ankunftszeit, etc)
+Cab->>CB: Cab meldet kontinuierlich seine Daten
+end
+
+loop Nutzeranwendung kontrolliert Buchung/Cab Status
+CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
+App->>User: Nutzer rechtzeitig über Ankunft informieren
+end
+
+Note left of Cab: Cab ist beim Kunden angekommen und zeigt QR an
+User->>App: Nutzer scannt QR Code vom Cab mit seiner App
+App->>Cab: Nutzer scannt QR Code vom Cab mit seiner App
+Note right of User: Nutzer ist registriert und eingeloggt
+CB->>Cab: Tür entriegeln
+
+Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
+
+User->>Cab: User gibt Fahrt über Bordcomputer oder App frei
+
+Note right of Cab: Cab fährt zum Zielort
+loop Update
+Cab->>Cab: Bordcomputer wird mit aktuellem Standort and Ankunftszeit aktualisiert
+end
+Note right of Cab: Cab ist am Zielort angekommen
+
+Cab->>Cab: Cab parkt und ermöglicht das entriegeln der Türen
+User->>App: Nutzer entriegelt Türe
+App->>CB: Türentriegelung
+CB->>Cab: Türentriegelung
+```
