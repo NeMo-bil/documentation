@@ -14,9 +14,23 @@ actor User
 %% technische Teilnehmer/Componenten definieren
 participant App as Nutzeranwendung
 participant CB as Context Broker (FF)
-participant RW as Reisewitz
-participant BX as Base-X Layer
+participant RW as Operative Planung (Reisewitz)
+participant BX as Base-X Layer (DLR)
 participant EXDS as External DataSpace
+
+loop Operative Planung bekommt Updates aus ContextBroker
+CB-->>RW: Notification für Änderungen der Attribute der Cab/Pros
+end
+
+loop Operative Planung aus externen Datenräumen
+
+RW->>CB:Anfrage externer Daten (Verkehrsituation, Streckenprofil)
+CB-)BX:Anfrage externer Daten 
+BX->>EXDS: Anfrage externer Daten 
+EXDS-->>BX: Externe Daten 
+BX-->>CB: Externe Daten 
+CB-->>RW: Externe Daten 
+end
 
 Note right of User: Nutzer ist registriert und eingeloggt
 User->>App: Ich möchte eine Fahrt buchen
@@ -25,15 +39,9 @@ loop Subscription für Buchungsanfragen Änderungen
 CB-->>RW: Notification für Buchungsanfragen mit den relevanten Daten
 
 activate RW
+Note right of RW: Wie bekommt RW den Energiebedarf einer Strecke? Wird sie überhaupt benötigt?
 RW-->>RW: Berechnung von Routenvorschlägen
 %% Abfrage von Streckenprofil in gegebenem Bereich -> Abgleich des ermittelten Energiebedarfs/Zielzeit
-Note right of RW: Wie bekommt RW den Energiebedarf einer Strecke?
-RW->>CB:Anfrage externer Daten (Verkehrsituation, Streckenprofil)
-CB-)BX:Anfrage externer Daten 
-BX->>EXDS: Anfrage externer Daten 
-EXDS-->>BX: Externe Daten 
-BX-->>CB: Externe Daten 
-CB-->>RW: Externe Daten 
 
 RW-->>CB: Lege Routenvorschläge ab
 deactivate RW
