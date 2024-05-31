@@ -92,8 +92,9 @@ Note left of RW: Anfahrt steht bald an und ein Cab wurde für die Erfüllung aus
 RW->>CB: Spezifisches Cab bekommt Pickup Location
 CB->>Cab: Spezifisches Cab bekommt Pickup Location
 Note left of Cab: Cab macht sich auf den Weg zum Kunden
-loop Cab meldet seine Daten (Position, Ankunftszeit, etc)
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
 Cab->>CB: Cab meldet kontinuierlich seine Daten
+Cab->>CB: Cab meldet besondere Zustandsänderungen sofort (Ankunft, Störung, Türöffnung, etc)
 end
 
 loop Nutzeranwendung kontrolliert Buchung/Cab Status
