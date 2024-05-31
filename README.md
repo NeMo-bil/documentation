@@ -1,8 +1,8 @@
 # documentation
 
 
-
-## Buchungsanfrage
+## Gesamtsystem
+### Buchungsanfrage
 
 
 ```mermaid
@@ -73,7 +73,7 @@ App->>User: Informierung über Planänderungen
 end
 ```
 
-## Fahrtantritt&Fahrt ( Ohne Konvoi )
+### Fahrtantritt&Fahrt ( Ohne Konvoi )
 
 ```mermaid
 sequenceDiagram
@@ -126,3 +126,44 @@ Note right of RW: Über den Sync wird RW über freies Cab informiert
 RW->>CB: Cab soll Stehen bleiben oder ins Depot oder zu einem Auftrag oder...
 CB->>Cab: Fahraufforderung
 ```
+
+
+### Konvoifahrt (An- und Abkoppeln)
+
+### Nutzerregistrierung
+
+### Nutzerpräferenzen erfassen und bearbeiten
+
+### Fahrt Bezahlvorgang
+
+### Fahrt Bewertung
+
+### Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
+
+### Fahrtausfälle für den Nutzer alternativ lösen
+
+### Daten aus Mobility Dataspaces anfordern
+
+## Monitoring / Dashboards
+
+### Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
+
+## Betreiber
+### Flottenplanung mit Szenarien ermöglichen und durchführen
+
+### Optimierungs- und Szenarienparameter erfassen und bearbeiten
+
+### Fahrtaufträge verwalten und optimieren
+
+### Fehler/Störungen verwalten
+
+### Sonderfahrtaufträge verwalten
+
+### Fahrtenhistorie verwalten und analysieren
+
+### Flottenkennzahlen bereitstelle und analysieren
+
+### Flottenzustand verwalten und analysieren
+
+### Wartungspläne bereitstellen
+
