@@ -129,30 +129,30 @@ CB->>Cab: Fahraufforderung
 ```
 
 
-### Konvoifahrt (An- und Abkoppeln)
+### FF: Konvoifahrt (An- und Abkoppeln)
 
-### Nutzerregistrierung
+### FF: Nutzerregistrierung
 
-### Nutzerpräferenzen erfassen und bearbeiten
+### FF: Nutzerpräferenzen erfassen und bearbeiten
 
-### Fahrt Bezahlvorgang
+### FF: Fahrt Bezahlvorgang
 
 ### Fahrt Bewertung
 
-### Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
+### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
 
-### Fahrtausfälle für den Nutzer alternativ lösen
+### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
-### Daten aus Mobility Dataspaces anfordern
+### DLR: Daten aus Mobility Dataspaces anfordern
 
 ## Monitoring / Dashboards
 
-### Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
+### FF: Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
 
 ## Betreiber
-### Flottenplanung mit Szenarien ermöglichen und durchführen
+### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
 
-### Optimierungs- und Szenarienparameter erfassen und bearbeiten
+### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
 
 ### Fahrtaufträge verwalten und optimieren
 
