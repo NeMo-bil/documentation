@@ -137,6 +137,50 @@ CB->>Cab: Fahraufforderung
 
 ### FF: Fahrt Bezahlvorgang
 
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor User
+%% technische Teilnehmer/Componenten definieren
+participant App as Nutzeranwendung
+participant CB as Context Broker (FF)
+participant RW as Operative Planung (Reisewitz)
+participant BS as Bezahlservice
+
+loop Bezahlservice bekommt Updates aus ContextBroker
+CB-->>BS: Notification für Änderungen bezüglich Buchungen, Routenvorschläge und Fahrten
+end
+Note left of RW: Nutzer hat Buchungsanfrage gestellt und bekommt Routenvorschläge von der Operativen Planung
+RW-->>CB: Lege Routenvorschläge ab
+CB-->>BS: Informiert über neue Routenvorschläge
+BS-->>BS: Berechnet vorraussichtliche Preise / holt Information bei Betreiber ab
+BS-->>CB: Fügt vorraussichtliche Preisinformation zu Routenvorschlägen hinzu 
+
+loop Polling
+App->>+CB: Abfrage von Routenvorschlägen
+CB-->>-App: Nutzerbetreffende Routenvorschläge
+end
+
+Note left of RW: Nutzer hat einen Routenvorschlag ausgewählt und bucht die Fahrt
+App->>CB: Lege gewählte Fahrt ab
+CB-->>BS: Informiert über neue Buchung
+BS-->>BS: Meldet Betreiber die Buchung
+alt Buchung mit Zahlungssystem vereinbar (zB Betrag im Kundenkonto sperren)
+    BS->>CB:  Buchung bestätigen
+else Buchung nicht gedeckt
+    BS->>CB:  Buchung ablehnen
+end
+
+Note left of RW: Fahrt findet statt oder wird gecancelt
+CB-->>BS: Informiert über Änderung einer Fahrt
+BS-->>BS: Meldet Betreiber die genauen Daten der Fahrt und fragt den Endpreis ab
+BS-->>CB: Preis wird in Fahrt hinterlegt
+
+
+```
+
 ### Fahrt Bewertung
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
