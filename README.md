@@ -153,6 +153,7 @@ ID->>+KC: Token mit Nutzer-Erstellungsrechten holen
 KC->>-ID: Token
 ID->>+KC: Nutzer ohne Passwort erstellen und Passwortzurücksetzungslink erstellen
 KC->>-ID: 
+ID->>App: Nutzer über erfolgreiche Accounterstellung informieren und auf Email hinweisen
 ID->>User: Email mit Passwortzurücksetzung schicken
 User->>KC: Passwort setzen und Account validieren
 ID->>CB: Nutzer Entity erstellen
