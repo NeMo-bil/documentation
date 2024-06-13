@@ -168,12 +168,15 @@ App->>CB: Lege gewählte Fahrt ab
 CB-->>BS: Informiert über neue Buchung
 BS->>BS: Meldet Betreiber die Buchung
 alt Buchung mit Zahlungssystem vereinbar (zB Betrag im Kundenkonto sperren)
-    BS->>CB:  Buchung bestätigen
+    BS->>CB:  Zahlungsfähigkeit der Buchung bestätigen
 else Buchung nicht gedeckt
     BS->>CB:  Buchung ablehnen
 end
 
-Note left of RW: Fahrt findet statt oder wird gecancelt
+CB->>RW: Information über Buchung und Zahlungsfähigkeit
+
+Note over App,BS: Platzhalter für die Prozesse der Fahrt. Nachfolgend ist die Fahrt abgeschlossen oder wurde storniert.  
+
 CB-->>BS: Informiert über Änderung einer Fahrt
 BS->>BS: Meldet Betreiber die genauen Daten der Fahrt und fragt den Endpreis ab
 BS->>CB: Preis wird in Fahrt hinterlegt
