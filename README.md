@@ -133,6 +133,30 @@ CB->>Cab: Fahraufforderung
 
 ### FF: Nutzerregistrierung
 
+> TODO: Welche Registrierungen wollen wir unterstützen? Email&Password vs SSO
+
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor User
+%% technische Teilnehmer/Componenten definieren
+participant App as Nutzeranwendung
+participant ID as Identity Service
+participant KC as Keycloak
+participant CB as Context Broker (FF)
+
+User->>App: Erstellt Nutzer mit Namen und Email Addresse
+App->>ID: Nutzerregistrierung erstellen
+ID->>+KC: Token mit Nutzer-Erstellungsrechten holen
+KC->>-ID: Token
+ID->>+KC: Nutzer ohne Passwort erstellen und Passwortzurücksetzungslink erstellen
+KC->>-ID: 
+ID->>User: Email mit Passwortzurücksetzung schicken
+User->>KC: Passwort setzen und Account validieren
+ID->>CB: Nutzer Entity erstellen
+```
 ### FF: Nutzerpräferenzen erfassen und bearbeiten
 
 ### FF: Fahrt Bezahlvorgang
