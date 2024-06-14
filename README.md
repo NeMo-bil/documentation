@@ -212,6 +212,34 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 
 ## Betreiber + Monitoring / Dashboards
 
+### FF: Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%% technische Teilnehmer/Componenten definieren
+
+actor User as Betreiber
+
+participant DASH as Grafana
+participant CB as Context Broker (FF)
+participant CBT as Context Broker - Temporal API provider
+
+Note left of User: Nutzer hat Dashboards und Reportvorlagen erstellt 
+
+User->>+DASH: Nutzer loggt sich in Grafana ein und öffnet das gewünschte Dashboard
+DASH->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
+CB->>-DASH: Aktuelle Daten
+DASH->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
+CBT->>-DASH: Zeitserien
+DASH->>DASH: Berechnung von nötigen Statistiken und Erzeugung der Visualisierung
+DASH->>-User: Generiertes Dashboard
+
+User->>+DASH: Nutzer erzeugt Report auf Basis des gewählten Dashboards
+DASH->>-User: Generierter Report als Download
+```
+## Betreiber
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
 
 ### SICP (neu): Portfolio festlegen
