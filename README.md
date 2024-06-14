@@ -144,11 +144,11 @@ sequenceDiagram
     participant App as Nutzeranwendung
     participant CB as Context Broker (FF)
     
-    Note right of User: Nutzer ist registriert und eingeloggt
-    User->>App: Ich möchte meine Reisepräferenzen festlegen
-    App->>CB: Legt Präferenzen ab
+    Note right of User: Nutzer ist registriert und eingeloggt, Anwendung hat aktuellen Stand von Buchungen und Nutzerpräferenzen abgefragt
+    User->>App: Ich möchte meine Reisepräferenzen anpassen
+    App->>CB: Legt Präferenzen ab / löscht sie / ändert sie
 
-    Note right of User: Nutzerpräferenzen werden standartmäßig auf Reisebuchungen angewendet, können jedoch auch für jede Reise angepasst werden
+    Note right of User: Nutzerpräferenzen werden standardmäßig auf Reisebuchungen angewendet, können jedoch auch für jede Reise angepasst werden
 ```
 
 ### FF: Fahrt Bezahlvorgang
