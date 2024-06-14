@@ -229,10 +229,12 @@ participant CBT as Context Broker - Temporal API provider (FF)
 Note left of User: Nutzer hat Dashboards und Reportvorlagen erstellt 
 
 User->>+DASH: Nutzer loggt sich in Grafana ein und öffnet das gewünschte Dashboard
-DASH->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
-CB->>-DASH: Aktuelle Daten
-DASH->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
-CBT->>-DASH: Zeitserien
+loop Wiederholtes abholen aller Daten, falls im Dashboaard aktiviert
+    DASH->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
+    CB->>-DASH: Aktuelle Daten
+    DASH->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
+    CBT->>-DASH: Zeitserien
+end
 DASH->>DASH: Berechnung von nötigen Statistiken und Erzeugung der Visualisierung
 DASH->>-User: Generiertes Dashboard
 
