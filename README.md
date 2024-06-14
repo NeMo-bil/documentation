@@ -224,7 +224,7 @@ actor User as Betreiber
 
 participant DASH as Grafana
 participant CB as Context Broker (FF)
-participant CBT as Context Broker - Temporal API provider
+participant CBT as Context Broker - Temporal API provider (FF)
 
 Note left of User: Nutzer hat Dashboards und Reportvorlagen erstellt 
 
