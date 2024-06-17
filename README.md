@@ -130,6 +130,20 @@ CB->>Cab: Fahraufforderung
 
 
 ### FF: Konvoifahrt (An- und Abkoppeln)
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+
+%% Benutzer definieren
+actor User
+
+%% technische Teilnehmer/Componenten definieren
+participant App as Nutzeranwendung
+
+User-->>App: Aktion1 ( X )
+
+```
 
 ### FF: Nutzerregistrierung
 
