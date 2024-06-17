@@ -185,6 +185,21 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 ```
 
 ### Fahrt Bewertung
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+
+%% Benutzer definieren
+actor User
+
+%% technische Teilnehmer/Componenten definieren
+participant App as Nutzeranwendung
+
+User-->>App: Aktion1 ( X )
+
+```
+
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
 
