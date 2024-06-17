@@ -137,7 +137,9 @@ CB->>Cab: Fahraufforderung
 
 ### FF: Fahrt Bezahlvorgang
 
-### Fahrt Bewertung
+### FF: Fahrt Bewertung
+
+### RW (neu): Fahrtaufträge verwalten und optimieren
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
 
@@ -184,26 +186,24 @@ end
 
 ### DLR: Daten aus Mobility Dataspaces anfordern
 
-## Monitoring / Dashboards
+## Betreiber + Monitoring / Dashboards
 
-### FF: Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
-
-## Betreiber
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
+
+### SICP (neu): Portfolio festelgen
 
 ### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
 
-### Fahrtaufträge verwalten und optimieren
+### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
 
-### Fehler/Störungen verwalten
+### FF - Dashboarding (neu): Information zu Wartungsplänen bereitstellen
 
-### Sonderfahrtaufträge verwalten
+### FF - Dashboarding (neu): Fehler/Störungen darstellen und analysieren
 
-### Fahrtenhistorie verwalten und analysieren
+### FF - Dashboarding (neu): Sonderfahrtaufträge darstellen und analysieren
 
-### Flottenkennzahlen bereitstelle und analysieren
+### FF - Dashboarding (neu): Fahrtenhistorie darstellen und analysieren
 
-### Flottenzustand verwalten und analysieren
+### FF - Dashboarding (neu): Flottenkennzahlen darstellen und analysieren
 
-### Wartungspläne bereitstellen
-
+### FF - Dashboarding (neu): Flottenzustand darstellen und analysieren
