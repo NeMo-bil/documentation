@@ -137,61 +137,34 @@ CB->>Cab: Fahraufforderung
 
 ### FF: Fahrt Bezahlvorgang
 
-### Fahrt Bewertung
+### FF: Fahrt Bewertung
+
+### RW (neu): Fahrtaufträge verwalten und optimieren
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
 
 ### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
-```mermaid
-sequenceDiagram
-%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
-%% autonumber
-%% Benutzer definieren
-actor User
-%% technische Teilnehmer/Componenten definieren
-participant RW as Operative Planung (Reisewitz)
-participant CB as Context Broker (FF)
-participant Cab
-
-CB->>RW: Subscription - Abweichung des Cabs vom Plan registriert und weitergemeldet 
-Note left of RW: Betriebsplanung sucht eine Möglichkeit das Problem zu lösen.
-Note left of RW: Auch nachfolgende Fahrten müssen validiert werden
-
-loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
-Cab->>CB: Cab meldet kontinuierlich seine Daten
-end
-
-RW->>CB: Nutzer über Verspätung oder Stornierung informieren
-CB->>User: Bekommt Mitteilung in diese App, dass sich das Cab verspätet mit der Option, dass die Fahrt storniert werden kann
-
-User->>CB: Entscheidung des Kunden wird angenommen
-CB->>RW: Fahrt wird anhand der Entscheidung angepasst
-RW->>Cab: Fahrtauftrag wird ggfs. angepasst
-```
-
 ### DLR: Daten aus Mobility Dataspaces anfordern
 
-## Monitoring / Dashboards
+## Betreiber + Monitoring / Dashboards
 
-### FF: Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
-
-## Betreiber
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
+
+### SICP (neu): Portfolio festlegen
 
 ### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
 
-### Fahrtaufträge verwalten und optimieren
+### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
 
-### Fehler/Störungen verwalten
+### FF - Dashboarding (neu): Information zu Wartungsplänen bereitstellen
 
-### Sonderfahrtaufträge verwalten
+### FF - Dashboarding (neu): Fehler/Störungen darstellen und analysieren
 
-### Fahrtenhistorie verwalten und analysieren
+### FF - Dashboarding (neu): Sonderfahrtaufträge darstellen und analysieren
 
-### Flottenkennzahlen bereitstelle und analysieren
+### FF - Dashboarding (neu): Fahrtenhistorie darstellen und analysieren
 
-### Flottenzustand verwalten und analysieren
+### FF - Dashboarding (neu): Flottenkennzahlen darstellen und analysieren
 
-### Wartungspläne bereitstellen
-
+### FF - Dashboarding (neu): Flottenzustand darstellen und analysieren
