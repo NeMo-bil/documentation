@@ -151,7 +151,7 @@ CB->>Cab: Fahraufforderung
 
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
 
-### SICP (neu): Portfolio festelgen
+### SICP (neu): Portfolio festlegen
 
 ### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
 
