@@ -178,6 +178,7 @@ Note left of RW: Cab bekommt einen neuen Auftrag/Stop
 loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
 Cab->>CB: Cab meldet kontinuierlich seine Daten
 end
+```
 
 ### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
