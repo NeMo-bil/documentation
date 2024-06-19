@@ -188,20 +188,8 @@ Note right of Pro: Pro fährt nächste Position der Route an und signalisiert be
 
 Cab->>Cab: Koppelt ab und führt Fahrt weiter fort (TODO: Müssen alle Cabs abkoppeln und neu verbinden? Oder ist es möglich das die Cabs kurz zurück fahren und jemanden raus lassen? -> WP3 )
 
-Note right of Cab: Cab fährt zum Zielort
-loop Update
-Cab->>Cab: Bordcomputer wird mit aktuellem Standort and Ankunftszeit aktualisiert
-end
-Note right of Cab: Cab ist am Zielort angekommen
+Note right of Cab: Cab führt Fahrt zum Zielort fort
 
-Cab->>Cab: Cab parkt und ermöglicht das entriegeln der Türen
-User->>Cab: Nutzer entriegelt Türe
-Note left of User: Nutzer steigt aus, lädt aus und schließt die Türe
-
-Cab->>CB: Fahrzeug fahrbereit
-Note right of RW: Über den Sync wird RW über freies Cab informiert
-RW->>CB: Cab soll Stehen bleiben oder ins Depot oder zu einem Auftrag oder...
-CB->>Cab: Fahraufforderung
 ```
 
 ### FF: Nutzerregistrierung
