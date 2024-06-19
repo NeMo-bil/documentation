@@ -155,29 +155,29 @@ participant CB as Context Broker (FF)
 participant Cab
 participant Betreiber
 
-Betreiber->>CB: Cab Sonderfahrt eintragen mit hoher Prio, damit dieser in den Fahrplan aufgenommen wird
-CB->>RW: Fahrt wird in den Cab Fahrplan aufgenommen
-Note left of CB: Entweder handelt es sich um eine Sonderfahrt, die vom Betreiber manuell ans System angefragt wird
-Note left of CB: Oder es handelt sich um einen Parkplatz oder eine Ladesäule, die die Betriebsplanung vorsieht
+alt Betreiber initiiert Sonderfahrt für spezielles Cab
+    Betreiber->>CB: Fahrtanfrage mit hoher Prio mit Ziel einer Sonderfahrt für spezielles Cab, damit diese in den Fahrplan aufgenommen wird
+    CB->>RW: Fahrt wird in den Cab Fahrplan aufgenommen. Evtl. werden andere Aufträge umgeplant
+    RW->>CB: Cab bekommt Fahrtziel Location (Wartung, Störung,  etc.)
+else Cab steuert eine geplante Ladesäule oder einen Parkplatz an
+    RW->>CB: Cab bekommt Fahrtziel Location Ladesäule oder Parkplatz
+end
 
-RW->>CB: Cab bekommt Fahrtziel Location (Laden, Parken, Wartung, etc.)
 CB->>Cab: Cab bekommt Fahrtziel Location mit Zielzeit
 Note left of Cab: Cab macht sich auf den Weg zum Ziel
 
-loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
-Cab->>CB: Cab meldet kontinuierlich seine Daten
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
+    Cab->>CB: Cab meldet kontinuierlich seine Daten
 End
 
 Cab->>CB: Cab meldet, dass es am Ziel angekommen ist
 CB->>RW: Information, dass das Cab am Ziel angekommen ist, wird weitergegeben
-
 Cab->Betreiber: Cab wird in Empfang genommen (Ladestecker, Fahrzeug wird manuell bedient)
 Note left of Betreiber: Wenn das Cab wieder zur Verfügung steht
-
 Betreiber->>CB: Sonderfahrt wird als erledigt markiert
-CB->>RW: Stop wird als erledigt markiert
-Note left of RW: Cab bekommt einen neuen Auftrag/Stop
-loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
+CB->>RW: Stopp wird als erledigt markiert
+Note left of RW: Cab bekommt einen neuen Auftrag/Stopp
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
 Cab->>CB: Cab meldet kontinuierlich seine Daten
 end
 ```
