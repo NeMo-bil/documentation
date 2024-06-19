@@ -208,6 +208,44 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 
 ### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor User
+%% technische Teilnehmer/Componenten definieren
+participant RW as Operative Planung (Reisewitz)
+participant CB as Context Broker (FF)
+participant Cab
+CB->>RW: Subscription - Abweichung des Cabs vom Plan registriert und weitergemeldet 
+Note left of RW: Betriebsplanung sucht eine Möglichkeit das Problem zu lösen.
+Note left of RW: Auch nachfolgende Fahrten müssen validiert werden
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
+Cab->>CB: Cab meldet kontinuierlich seine Daten
+end
+
+Note left of RW: Betriebsplanung versucht die Situation zu lösen
+alt Ersatz-Cab kommt 
+    RW->>CB: Anderes Cab zum Zielpunkt und Zielzeit schicken
+    CB->>Cab: Anderes Cab zum Zielpunkt und Zielzeit schicken
+    RW->>CB: Altes Cab anderen Auftrag zuweisen
+    CB->>Cab: Altes Cab zum neuen Auftrag mitteilen
+else Kein anderes Cab kann genutzt werden
+    RW->>CB: Nutzer über Verspätung oder Stornierung informieren
+    CB->>User: Bekommt Mitteilung in diese App, dass sich das Cab verspätet mit der Option, dass die Fahrt storniert werden kann
+    alt Nutzer akzeptiert/bestätigt die Anpassung
+        User->>CB: Entscheidung des Kunden wird angenommen
+        CB->>RW: Fahrt wird angepasst
+        RW->>Cab: Fahrtauftrag wird ggfs. angepasst
+    else Nutzer möchte die Fahrt stornieren
+        User->>CB: Entscheidung des Kunden wird angenommen
+        CB->>RW: Buchung des Nutzers wird storniert
+        RW->>Cab: Bekommt neuen Fahrtauftrag, wenn es keinen alten gibt
+    end
+end
+```
+
 ### DLR: Daten aus Mobility Dataspaces anfordern
 
 ## Betreiber + Monitoring / Dashboards
