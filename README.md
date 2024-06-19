@@ -212,7 +212,13 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 
 ## Betreiber + Monitoring / Dashboards
 
-### FF: Betriebsdaten (operativ und wirtschaftlich) monitoren, analysieren und reporten
+### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
+
+### SICP (neu): Portfolio festlegen
+
+### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
+
+### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
 ```mermaid
 sequenceDiagram
 %% auskommentieren wenn wir Details zur Kommunikation aufschreiben
@@ -252,15 +258,6 @@ loop Wiederholtes Abholen aller Daten (TODO: Falls NGSI-LD nicht als Datenquelle
     end
 end
 ```
-## Betreiber
-### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
-
-### SICP (neu): Portfolio festlegen
-
-### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
-
-### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
-
 ### FF - Dashboarding (neu): Information zu Wartungsplänen bereitstellen
 
 ### FF - Dashboarding (neu): Fehler/Störungen darstellen und analysieren
