@@ -225,8 +225,9 @@ actor User as Betreiber
 participant DASH as Grafana
 participant CB as Context Broker (FF)
 participant CBT as Context Broker - Temporal API provider (FF)
+participant AM as AlertManager
 
-Note left of User: Nutzer hat Dashboards und Reportvorlagen erstellt 
+Note left of User: Nutzer hat Dashboards,Alerts und Reportvorlagen erstellt 
 
 User->>+DASH: Nutzer loggt sich in Grafana ein und öffnet das gewünschte Dashboard
 loop Wiederholtes abholen aller Daten, falls im Dashboaard aktiviert
@@ -240,6 +241,16 @@ DASH->>-User: Generiertes Dashboard
 
 User->>+DASH: Nutzer erzeugt Report auf Basis des gewählten Dashboards
 DASH->>-User: Generierter Report als Download
+
+loop Wiederholtes Abholen aller Daten (TODO: Falls NGSI-LD nicht als Datenquelle integriert werden kann, direkter Zugriff auf die Zeitserien Datenbank)
+    AM->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
+    CB->>-AM: Aktuelle Daten
+    AM->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
+    CBT->>-AM: Zeitserien
+    alt Überprüfung ob Werte eine Alarmierung erfordern
+        AM->>User: Nutzer per Email,Slack,PagerDuty,oÄ benachrichtigen
+    end
+end
 ```
 ## Betreiber
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
