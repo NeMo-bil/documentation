@@ -252,9 +252,63 @@ end
 
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
 
-### SICP (neu): Portfolio festlegen
+```mermaid
+sequenceDiagram
+%% Flottenplanung mit Szenarien ermöglichen und durchführen
+%% 
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor BT as Betreiber
+%% technische Teilnehmer/Componenten definieren
+%% participant EXDS as External DataSpace
+participant DB as Dashboard/Schnittstelle
+participant VDG as Virtueller Nachfragegenerator
+participant SICP as Flottenplanung (SICP)
+participant RW as Betriebsplanung (Reisewitz)
+participant LOG as Logging
+participant CB as Context Broker (FF)
 
-### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
+
+BT->>DB: Betriebsgebiet (inkl. Ladeinfrastruktur)
+BT->>DB: Randbedingungen & Optimierungskriterien
+BT->>DB: Nachfragedaten
+DB->>VDG: Nachfragedaten
+DB->>VDG: Randbedingungen
+VDG->>SICP: Nachfrageszenario
+DB->>SICP: Randbedingungen & Optimierungskriterien
+DB->>RW: Randbedingungen & Optimierungskriterien
+DB->>RW: Betriebsgebiet (inkl. Ladeinfrastruktur)
+
+
+loop Reoptimierung (interaktion mit Betreiber)
+    loop Steuerungsheuristik
+        SICP->>RW: Flottenportfolio
+        loop Tagessimulation
+            SICP->>RW: Anfrage
+            RW->>LOG: Event
+        end
+        LOG->>SICP: Systemstatus
+
+    end
+ 
+    SICP->>DB: Flottenspezifikation & KPIs
+
+    DB->>BT: Flottenempfehlung
+    alt Nicht akzeptiert
+        BT->>DB: Neue Randbedingungen und/oder Optimierungskriterien
+        DB->>VDG: Neue Randbedingungen
+        DB->>SICP: Neue Randbedingungen & Optimierungskriterien
+        DB->>RW: Neue Randbedingungen & Optimierungskriterien
+    else Akzeptiert
+        break Bei akzeptiert
+            BT->>BT: 
+        end
+        BT->>DB: Finales Flottenportfolio
+    end
+end
+DB->>CB: Finales Flottenportfolio
+```
 
 ### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
 
