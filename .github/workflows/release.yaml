@@ -1,13 +1,9 @@
 name: Pre-Release
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - labeled
-      - unlabeled  
+  push:
+    branches:
+      - main
 
 
 env:
@@ -53,15 +49,15 @@ jobs:
           name: docs
           path: export
 
-#      - name: Release
-#        uses: "marvinpinto/action-automatic-releases@latest"
-#        with:
-#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-#          automatic_release_tag: ${{ env.NOW }}
-#          prerelease: true
-#          title: ${{ env.NOW }}
-#          files: |
-#            export/processes.tar.gz
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Latest"
+          files: |
+            export/processes.tar.gz
           
 
 
