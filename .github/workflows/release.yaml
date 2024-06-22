@@ -1,0 +1,64 @@
+name: Pre-Release
+
+on:
+  push:
+    branches:
+      - main
+
+
+env:
+  INPUT_FILENAME: README
+  
+      
+jobs:
+
+  export-release:
+    name: Export and Release
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create export directories
+        run: |
+          mkdir export
+          mkdir -p doc/img/mermaid
+
+      - name: Compile mermaid diagrams
+        uses: Marloxo/compile-mermaid-markdown-action@0.2.3
+        with:
+          files: ./${{ env.INPUT_FILENAME }}.md
+          output: 'doc/img/mermaid'
+        env:
+          HIDE_CODEBLOCKS: 1
+          ABSOLUTE_IMAGE_LINKS: ""
+          OUTPUT_FILE_TYPE: "png"
+
+
+      - name: Rename export files
+        run: |
+          tar -czvf export/processes.tar.gz doc/img/mermaid/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs
+          path: export
+
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Latest"
+          files: |
+            export/processes.tar.gz
+          
+
+
+
+
+  
