@@ -1,9 +1,16 @@
 name: Pre-Release
 
 on:
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 
 
 env:
@@ -27,7 +34,7 @@ jobs:
           mkdir -p doc/img/mermaid
 
       - name: Compile mermaid diagrams
-        uses: Marloxo/compile-mermaid-markdown-action@0.2.3
+        uses: pulledtim/compile-mermaid-markdown-action@ae89dd1
         with:
           files: ./${{ env.INPUT_FILENAME }}.md
           output: 'doc/img/mermaid'
