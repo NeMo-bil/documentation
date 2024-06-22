@@ -12,8 +12,6 @@ env:
       
 jobs:
 
-  
-  # Export to PDF and release
   export-release:
     name: Export and Release
     runs-on: ubuntu-latest
