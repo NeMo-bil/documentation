@@ -1,16 +1,10 @@
 name: Pre-Release
 
 on:
-#  push:
-#    branches:
-#      - main
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - labeled
-      - unlabeled
+  push:
+    branches:
+      - main
+
 
 
 env:
@@ -34,7 +28,7 @@ jobs:
           mkdir -p doc/img/mermaid
 
       - name: Compile mermaid diagrams
-        uses: pulledtim/compile-mermaid-markdown-action@9ceea8f5fcc87ae23e7f0b4f0cf58e5bb4d0c57e
+        uses: pulledtim/compile-mermaid-markdown-action@6eef5895ed493381faa298cdeaa7c6c9342f48cb
         with:
           files: ./${{ env.INPUT_FILENAME }}.md
           output: 'doc/img/mermaid'
