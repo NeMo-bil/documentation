@@ -34,7 +34,7 @@ jobs:
           mkdir -p doc/img/mermaid
 
       - name: Compile mermaid diagrams
-        uses: pulledtim/compile-mermaid-markdown-action@580e2cdbc4575f307bcebe896889d7bfed88c346
+        uses: pulledtim/compile-mermaid-markdown-action@9ceea8f5fcc87ae23e7f0b4f0cf58e5bb4d0c57e
         with:
           files: ./${{ env.INPUT_FILENAME }}.md
           output: 'doc/img/mermaid'
