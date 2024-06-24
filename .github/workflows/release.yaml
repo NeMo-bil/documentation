@@ -1,4 +1,4 @@
-name: Pre-Release
+name: Release
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           mkdir -p doc/img/mermaid
 
       - name: Compile mermaid diagrams
-        uses: pulledtim/compile-mermaid-markdown-action@be7a8a2d42c7b98edbb6e44c43637bfc6725d6d8
+        uses: pulledtim/compile-mermaid-markdown-action@6eef5895ed493381faa298cdeaa7c6c9342f48cb
         with:
           files: ./${{ env.INPUT_FILENAME }}.md
           output: 'doc/img/mermaid'
