@@ -1,9 +1,8 @@
 # documentation
 
-
 ## Gesamtsystem
-### Buchungsanfrage
 
+### Buchungsanfrage
 
 ```mermaid
 sequenceDiagram
@@ -128,12 +127,12 @@ RW->>CB: Cab soll Stehen bleiben oder ins Depot oder zu einem Auftrag oder...
 CB->>Cab: Fahraufforderung
 ```
 
-
 ### FF: Konvoifahrt (An- und Abkoppeln)
 
 ### FF: Nutzerregistrierung
 
 ### FF: Nutzerpräferenzen erfassen und bearbeiten
+
 ```mermaid
 sequenceDiagram
 %% auskommentieren wenn wir Details zur Kommunikation aufschreiben
@@ -204,7 +203,7 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 
 ### RW (neu): Fahrtaufträge verwalten und optimieren
 
-### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
+### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…)
 
 ### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
@@ -246,7 +245,54 @@ else Kein anderes Cab kann genutzt werden
 end
 ```
 
-### DLR: Daten aus Mobility Dataspaces anfordern
+### DLR: Daten im Datenraum bereitstellen
+
+```mermaid
+sequenceDiagram
+%% Akteure und Teilnehmer definieren
+actor Anbieter
+participant EDC as Data Space Connector (EDC)
+participant Datenraum as Datenraum Plattform
+participant Verbraucher as Verbraucher 
+
+%% Datenbereitstellungsprozess
+Anbieter->>EDC: Daten bereitstellen
+EDC->>Datenraum: Datenverfügbarkeit registrieren
+Datenraum->>EDC: Registrierung bestätigen
+
+%% Verbraucher fordert Daten an
+Verbraucher->>Datenraum: Datenzugriff anfordern
+Datenraum->>EDC: Anfrage und Datenverträge validieren
+EDC-->>Datenraum: Vertrag validiert
+Datenraum-->>Verbraucher: Zugriff gewährt
+
+%% Datenaustausch
+Verbraucher->>EDC: Daten abrufen
+EDC-->>Verbraucher: Daten geliefert
+```
+
+### DLR: Daten aus Datenraum beziehen
+
+```mermaid
+sequenceDiagram
+%% Akteure und Teilnehmer definieren
+actor Verbraucher
+participant EDC as Data Space Connector (EDC)
+participant Datenraum as Datenraum Plattform
+participant Anbieter as Datenanbieter
+
+%% Verbraucher fordert Daten an
+Verbraucher->>Datenraum: Daten anfordern
+Datenraum->>EDC: Anfrage und Datenverträge validieren
+EDC-->>Datenraum: Vertrag validiert
+Datenraum-->>Verbraucher: Zugriff gewährt
+
+%% Datenabrufprozess
+Verbraucher->>EDC: Daten abrufen
+EDC->>Anbieter: Daten anfordern
+Anbieter-->>EDC: Daten geliefert
+EDC-->>Verbraucher: Daten geliefert
+```
 
 ## Betreiber + Monitoring / Dashboards
 
