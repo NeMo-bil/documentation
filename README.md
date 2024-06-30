@@ -257,7 +257,45 @@ end
 ### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
 
 ### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%% technische Teilnehmer/Componenten definieren
 
+actor User as Betreiber
+
+participant DASH as Grafana
+participant CB as Context Broker (FF)
+participant CBT as Context Broker - Temporal API provider (FF)
+participant AM as AlertManager
+
+Note left of User: Nutzer hat Dashboards,Alerts und Reportvorlagen erstellt 
+
+User->>+DASH: Nutzer loggt sich in Grafana ein und öffnet das gewünschte Dashboard
+loop Wiederholtes abholen aller Daten, falls im Dashboaard aktiviert
+    DASH->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
+    CB->>-DASH: Aktuelle Daten
+    DASH->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
+    CBT->>-DASH: Zeitserien
+end
+DASH->>DASH: Berechnung von nötigen Statistiken und Erzeugung der Visualisierung
+DASH->>-User: Generiertes Dashboard
+
+User->>+DASH: Nutzer erzeugt Report auf Basis des gewählten Dashboards
+DASH->>-User: Generierter Report als Download
+
+loop Wiederholtes Abholen aller Daten (TODO: Falls NGSI-LD nicht als Datenquelle integriert werden kann, direkter Zugriff auf die Zeitserien Datenbank)
+    AM->>+CB: Hole nötige Momentandaten der zu zeigenden Entitäten
+    CB->>-AM: Aktuelle Daten
+    AM->>+CBT: Hole nötige historische Daten/Zeitserien der zu zeigenden Entitäten im gewählten Zeitraum
+    CBT->>-AM: Zeitserien
+    alt Überprüfung ob Werte eine Alarmierung erfordern
+        AM->>User: Nutzer per Email,Slack,PagerDuty,oÄ benachrichtigen
+    end
+end
+```
 ### FF - Dashboarding (neu): Information zu Wartungsplänen bereitstellen
 
 ### FF - Dashboarding (neu): Fehler/Störungen darstellen und analysieren
