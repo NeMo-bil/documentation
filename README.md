@@ -202,7 +202,34 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 
 ### FF: Fahrt Bewertung
 
-### RW (neu): Fahrtaufträge verwalten und optimieren
+### RW: Fahrtaufträge stornieren
+
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%%actor User
+%% technische Teilnehmer/Componenten definieren
+participant Nutzer
+participant CB as Context Broker (FF)
+participant RW as Operative Planung (Reisewitz)
+participant Betreiber
+participant Cab
+
+Nutzer->>CB: Fahrtauftrag stornieren
+CB->>RW: Fahrtauftrag wird aus der Planung entfernt
+
+alt Cab war schon auf dem Weg zum Nutzer (kurzfristig)
+    RW->>Cab: Neuen Fahrtauftrag an Cab
+    CB-->>Betreiber: Informiert über Änderung einer Fahrt
+    Betreiber->>Betreiber: Meldet Betreiber die genauen Daten der kurzfristigen Stornierung und fragt den Endpreis ab
+    Betreiber->>CB: Preis wird in Fahrt hinterlegt
+    CB->>Nutzer: Mitteilung über Stornierungskosten
+else Stonierung Problemlos angenommen
+    CB->>Nutzer: Erfolgreiche Stornierung zurückgeben
+end
+```
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…) 
 
