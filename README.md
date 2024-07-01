@@ -222,7 +222,9 @@ CB->>RW: Fahrtauftrag wird aus der Planung entfernt
 
 alt Cab war schon auf dem Weg zum Nutzer (kurzfristig)
     RW->>Cab: Neuen Fahrtauftrag an Cab
-    CB->>Betreiber: Benachrichtung über kurzfristige Stornierung
+    CB-->>Betreiber: Informiert über Änderung einer Fahrt
+    Betreiber->>Betreiber: Meldet Betreiber die genauen Daten der kurzfristigen Stornierung und fragt den Endpreis ab
+    Betreiber->>CB: Preis wird in Fahrt hinterlegt
     CB->>Nutzer: Mitteilung über Stornierungskosten
 else Stonierung Problemlos angenommen
     CB->>Nutzer: Erfolgreiche Stornierung zurückgeben
