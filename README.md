@@ -201,6 +201,21 @@ BS->>CB: Preis wird in Fahrt hinterlegt
 ```
 
 ### FF: Fahrt Bewertung
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor User
+%% technische Teilnehmer/Componenten definieren
+participant App as Nutzeranwendung
+participant CB as Context Broker (FF)
+
+Note right of User: Nutzer hat eine oder mehrere abgeschlossene Fahrten, <br> Anwendung hat aktuellen Stand von Buchungen abgefragt
+
+User->>App: Ich möchte eine Fahrt bewerten
+App->>CB: Legt Fahrtbewertung ab
+```
 
 ### RW: Fahrtaufträge stornieren
 
