@@ -102,10 +102,9 @@ CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
 App->>User: Nutzer rechtzeitig über Ankunft informieren
 end
 
-Note left of Cab: Cab ist beim Kunden angekommen und zeigt QR an
-User->>App: Nutzer scannt QR Code vom Cab mit seiner App
-App->>Cab: Nutzer scannt QR Code vom Cab mit seiner App
-Note right of User: Nutzer ist registriert und eingeloggt
+Note left of Cab: Cab ist beim Kunden angekommen
+User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
+App->>CB: Gibt die Türe frei
 CB->>Cab: Tür entriegeln
 
 Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
@@ -161,10 +160,9 @@ CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
 App->>User: Nutzer rechtzeitig über Ankunft informieren
 end
 
-Note left of Cab: Cab ist beim Kunden angekommen und zeigt QR an
-User->>App: Nutzer scannt QR Code vom Cab mit seiner App
-App->>Cab: Nutzer scannt QR Code vom Cab mit seiner App
-Note right of User: Nutzer ist registriert und eingeloggt
+Note left of Cab: Cab ist beim Kunden angekommen
+User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
+App->>CB: Gibt die Türe frei
 CB->>Cab: Tür entriegeln
 
 Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
