@@ -261,13 +261,13 @@ sequenceDiagram
 %% Benutzer definieren
 actor BT as Betreiber
 %% technische Teilnehmer/Componenten definieren
-%% participant EXDS as External DataSpace
 participant DB as Dashboard/Schnittstelle
 participant VDG as Virtueller Nachfragegenerator
 participant SICP as Flottenplanung (SICP)
 participant RW as Betriebsplanung (Reisewitz)
 participant LOG as Logging
-participant CB as Context Broker (FF)
+%%participant CB as Context Broker (FF)
+participant EXDS as External DataSpace
 
 
 BT->>DB: Betriebsgebiet (inkl. Ladeinfrastruktur)
@@ -291,7 +291,7 @@ loop Reoptimierung (interaktion mit Betreiber)
         LOG->>SICP: Systemstatus
 
     end
- 
+    SICP->>EXDS: Speichern Ergebnisse der Flottenoptimierung
     SICP->>DB: Flottenspezifikation & KPIs
 
     DB->>BT: Flottenempfehlung
@@ -307,7 +307,7 @@ loop Reoptimierung (interaktion mit Betreiber)
         BT->>DB: Finales Flottenportfolio
     end
 end
-DB->>CB: Finales Flottenportfolio
+DB->>EXDS: Finales Flottenportfolio
 ```
 
 ### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
