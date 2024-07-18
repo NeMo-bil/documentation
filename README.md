@@ -140,52 +140,60 @@ participant RW as Operative Planung (Reisewitz)
 participant CB as Context Broker (FF)
 participant Cab
 participant Pro
-
 participant App as Nutzeranwendung
 actor User
-
-Note left of RW: Anfahrt steht bald an und ein Cab wurde für die Erfüllung ausgewählt
+Note right of RW: Anfahrt steht bald an und ein Cab wurde für die Erfüllung ausgewählt
 RW->>CB: Spezifisches Cab erhält Pickup Location, Pro erhält aktualisierte Route mit den An- und Abkoppelorten und Zeitpunkten
 CB->>Cab: Spezifisches Cab erhält Pickup Location
 CB->>Pro: Aktualisierte Route mit den An- und Abkoppelorten und Zeitpunkten
-
 Note left of Cab: Cab macht sich auf den Weg zum Kunden
 loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
-Cab->>CB: Cab meldet kontinuierlich seine Daten
-Cab->>CB: Cab meldet besondere Zustandsänderungen sofort (Ankunft, Störung, Türöffnung, etc)
+    Cab->>CB: Cab meldet kontinuierlich seine Daten
+    Cab->>CB: Cab meldet besondere Zustandsänderungen sofort (Ankunft, Störung, Türöffnung, etc)
 end
-
 loop Nutzeranwendung kontrolliert Buchung/Cab Status
-CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
-App->>User: Nutzer rechtzeitig über Ankunft informieren
+    CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
+    App->>User: Nutzer rechtzeitig über Ankunft informieren
 end
-
 Note left of Cab: Cab ist beim Kunden angekommen
 User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
 App->>CB: Gibt die Türe frei
 CB->>Cab: Tür entriegeln
-
 Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
-
 User->>Cab: User gibt Fahrt über Bordcomputer oder App frei
-
-Note left of Pro: Pro erreicht die Koppelposition und signalisiert die Koppelbereitschaft
+Note left of Pro: Pro erreicht die Anfang der Koppelstrecke und signalisiert die Koppelbereitschaft
 Pro->>CB: Pro meldet aktuelle Daten (Position, Orientierung)
-CB->>RW: Update über Pro/Cab Daten (Position, Orientierung)
-RW->>RW: Berechnung der Koppelkoordinaten
-RW->>CB: Aktualisierung der Route mit dem aktualisierten Koppelpunkt
+RW->>CB: Aktualisierung der Route mit dem gewünschten Koppelstrecke
 CB->>Cab: Aktualisierung der Route
-
-Note right of Cab: Cab fährt zum Konvoisammelpunkt und nutzt die Position&Orientierung des Koppelpartners als Zielvorgabe
-
+Note right of Cab: Cab fährt zum Konvoisammelpunkt und nutzt die Position&Orientierung des Koppelpartners in der Koppelzone als Zielvorgabe
+Pro->>Cab: Kontaktaufbau über V2X und sendet Koppelbereitschaft
+Cab->>Pro: Koppelbereitschaft bestätigt
 Cab->>Cab: Nach Erreichen des Zielpunktes wird der Ankoppelvorgang über das optische Leitsystem gestartet
+Pro->>CB: Nachricht über den Anzahl der gekoppelten Fahrzeuge
+Cab->>CB: Nachricht über den Status des Koppelvorgangs
+CB->>RW: Update Koppelvorgang -> Nueplanung falls nicht erfolgreich, sonst Befehl für nächste
 CB->>App: Benachrichtigung für den gestarten Koppelvorgang
-
 Note right of Cab: Cab koppelt an und kommuniziert für die Weiterfahrt direkt mit den angeschlossenen Fahrzeugen (TODO: soll der Fahrbefehl von von Extern kommen oder soll das Pro es selber entscheiden?)
+Note right of Pro: Variante 1 -> Abkoppeln an dediziertem Abkoppelpunkt, Variante 2 -> Abkoppeln bei langsamer Fahrt von hinten
+RW->>CB: Aktualisierung der Route mit dem gewünschten Abkoppelstrecke und welche Cabs abkoppeln sollen
+CB->>Pro: Aktualisierung der Route
+CB->>Cab: Aktualisierung der Route
+Note right of Pro: Konvoi erreicht Abkoppelstrecke, Pro fährt mit reduzierter Geschwindigkeit
+Pro->>Cab: Meldung das Abkoppeln möglich ist, Ladeinfrastruktur wird deaktiviert
+Cab->>Cab: Cab entscheidet über Abkopplung unter Berücksichtigung der dahinterliegenden Fahrzeuge
+RW->>Cab: Neuer Routenpunkt
+
+Note right of Pro: Variante 3 -> Ein&Abkoppeln unabhängig von Konvoiindex
+RW->>CB: Aktualisierung der Route mit dem gewünschten Abkoppelstrecke in der Nähe der Ankoppelstrecke, Markierung aller Cabs nach dem Abfahrenden zur Abkopplung
+CB->>Pro: Aktualisierung der Route
+CB->>Cab: Aktualisierung der Route
+Note right of Pro: Konvoi erreicht Abkoppelstrecke, Pro fährt mit reduzierter Geschwindigkeit
+Pro->>Cab: Meldung das Abkoppeln möglich ist, Ladeinfrastruktur wird deaktiviert
+Cab->>Cab: Cab entscheidet über Abkopplung unter Berücksichtigung der dahinterliegenden Fahrzeuge
+RW->>Cab: Cabs die zur Weiterfahrt im Konvoi bestimmt sind begeben sich zum Pro in den Ankoppelbereich
+
 Note right of Pro: Pro fährt nächste Position der Route an und signalisiert bei Erreichen die Abkoppelbereitschaft (TODO: Über CAN oder CB?)
-
 Cab->>Cab: Koppelt ab und führt Fahrt weiter fort (TODO: Müssen alle Cabs abkoppeln und neu verbinden? Oder ist es möglich das die Cabs kurz zurück fahren und jemanden raus lassen? -> WP3 )
-
 Note right of Cab: Cab führt Fahrt zum Zielort fort
 
 ```
