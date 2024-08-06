@@ -102,10 +102,9 @@ CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
 App->>User: Nutzer rechtzeitig über Ankunft informieren
 end
 
-Note left of Cab: Cab ist beim Kunden angekommen und zeigt QR an
-User->>App: Nutzer scannt QR Code vom Cab mit seiner App
-App->>Cab: Nutzer scannt QR Code vom Cab mit seiner App
-Note right of User: Nutzer ist registriert und eingeloggt
+Note left of Cab: Cab ist beim Kunden angekommen
+User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
+App->>CB: Gibt die Türe frei
 CB->>Cab: Tür entriegeln
 
 Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
@@ -130,6 +129,82 @@ CB->>Cab: Fahraufforderung
 
 
 ### FF: Konvoifahrt (An- und Abkoppeln)
+
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%% technische Teilnehmer/Componenten definieren
+    participant RW as Operative Planung (Reisewitz)
+    participant CB as Context Broker (FF)
+    participant Cab
+    participant Pro
+    participant App as Nutzeranwendung
+    actor User
+    Note right of RW: Anfahrt steht bald an und ein Cab wurde für die Erfüllung ausgewählt
+    RW->>CB: Spezifisches Cab erhält Pickup Location, Pro erhält aktualisierte Route mit den An- und Abkoppelorten und Zeitpunkten
+    CB->>Cab: Spezifisches Cab erhält Pickup Location
+    CB->>Pro: Aktualisierte Route mit den An- und Abkoppelorten und Zeitpunkten
+    Note left of Cab: Cab macht sich auf den Weg zum Kunden
+    loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc)
+        Cab->>CB: Cab meldet kontinuierlich seine Daten
+        Cab->>CB: Cab meldet besondere Zustandsänderungen sofort (Ankunft, Störung, Türöffnung, etc)
+    end
+    loop Nutzeranwendung kontrolliert Buchung/Cab Status
+        CB->>App: Update über Cab Daten (Position, Ankunftszeit, Kennzeichen)
+        App->>User: Nutzer rechtzeitig über Ankunft informieren
+    end
+    Note left of Cab: Cab ist beim Kunden angekommen
+    User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
+    App->>CB: Gibt die Türe frei
+    CB->>Cab: Tür entriegeln
+    Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
+    User->>Cab: User gibt Fahrt über Bordcomputer oder App frei
+    Note left of Pro: Pro erreicht die Anfang der Koppelstrecke und signalisiert die Koppelbereitschaft
+    Pro->>CB: Pro meldet aktuelle Daten (Position, Orientierung)
+    RW->>CB: Aktualisierung der Route mit dem gewünschten Koppelstrecke
+    CB->>Cab: Aktualisierung der Route
+%% Ankoppelvorgang (Variante 1 - Freies Ankoppeln / reihenfolge unerheblich)
+    alt Ankoppelvorgang (Variante 1 - Freies Ankoppeln / reihenfolge unerheblich)
+        CB->>App: Benachrichtigung für den gestarten Koppelvorgang
+        Note right of Cab: Cab fährt zur Kopplungsstrecke
+        Pro->>Cab: Kontaktaufbau über V2X und sendet Koppelbereitschaft
+        Cab->>Pro: Koppelbereitschaft bestätigt
+        Cab->>Cab: Nach Erreichen des Zielpunktes wird der Ankoppelvorgang über das optische Leitsystem gestartet
+        Pro->>CB: Nachricht über den Anzahl der gekoppelten Fahrzeuge
+        Cab->>CB: Nachricht über den Status des Koppelvorgangs
+        CB->>RW: Update Koppelvorgang -> Neuplanung falls nicht erfolgreich, sonst Befehl für nächste
+    else Ankoppelvorgang (Variante 2 - Ankoppeln mehrerer Cabs mit definierter Reihenfolge)
+        CB->>App: Benachrichtigung für den gestarten Koppelvorgang
+        Note right of Cab: Cab fährt zur Kopplungsstrecke, die Information zur Position innerhalb des Konvois wird verwendet
+        Pro->>Cab: Kontaktaufbau über V2X und sendet Koppelbereitschaft
+        Cab->>Pro: Koppelbereitschaft bestätigt
+        Cab->>Cab: Nach Erreichen des Zielpunktes wird der Ankoppelvorgang über das optische Leitsystem gestartet
+        Pro->>CB: Nachricht über den Anzahl der gekoppelten Fahrzeuge
+        Cab->>CB: Nachricht über den Status des Koppelvorgangs
+        CB->>RW: Update Koppelvorgang -> Neuplanung falls nicht erfolgreich, sonst Befehl für nächste
+    end
+    Note right of Cab: Cab ist angekoppelt und kommuniziert für die Weiterfahrt direkt mit den angeschlossenen Fahrzeugen, Fahrzeugzug erkennt vollständigkeit und fährt nächsten Routenpunkt an
+%% Abkoppelvorgang
+    alt Variante 1 -> Abkoppeln an dediziertem Abkoppelpunkt, Variante 2 -> Abkoppeln bei langsamer Fahrt von hinten
+        RW->>CB: Aktualisierung der Route mit dem gewünschten Abkoppelregion und welche Cabs abkoppeln sollen
+        CB->>Pro: Aktualisierung der Route
+        CB->>Cab: Aktualisierung der Route
+        Note right of Pro: Konvoi erreicht Abkoppelregion
+        Cab->>Pro: Meldung das Abkoppelwunsch besteht
+        Note right of Pro: Pro reduziert Geschwindigkeit
+        Cab->>Cab: Cab entscheidet über Abkopplung unter Berücksichtigung der dahinterliegenden Cabs
+        Cab->>Pro: Meldung das Abkoppelung erfolgen soll
+        Pro->>Cab: Meldung das Abkoppeln möglich ist, Ladeinfrastruktur wird deaktiviert
+        Note right of Cab: Cab ist abgekoppelt und steuert nächsten Punkt an (TODO: Überprüfe Modell für routenpunkte)
+    end
+    Note right of Cab: Cab führt Fahrt zum Zielort fort
+
+
+%% Abkoppeln: Region von RW,nächster Routenpunkt von RW, Status der Abkopplung an RW
+%% Ankoppeln: Koppelstrecke mit Richtung von RW, Status der Kopplung an RW, Konvoiindex von RW (nur bei Variante 2&3)
+```
 
 ### FF: Nutzerregistrierung
 
