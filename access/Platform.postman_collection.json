@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "f0f2689f-b0f8-4943-8be0-f9c970c63d2d",
+		"name": "Platform",
+		"description": "Collection of useful requests on the NeMo.Bil Platform, please run auth/GetToken for requesting a token.\n\nPlease fill in the missing credentials in this project's variables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28627786"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Retrieve all subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions",
+							"protocol": "http",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve available types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/types",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"token successful\", function () {",
+									"    pm.expect(pm.response.code).to.eql(200);",
+									"",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access_token).to.exist;",
+									"    pm.collectionVariables.set(\"token\", jsonData.access_token);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "api:read api:write",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://idm.{{cloud_url}}/auth/realms/nemobil/protocol/openid-connect/token",
+							"protocol": "https",
+							"host": [
+								"idm",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"nemobil",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DLR",
+			"item": [
+				{
+					"name": "Retrieve WeatherObserved",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/?type=https://smartdatamodels.org/dataModel.Weather/WeatherObserved",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "https://smartdatamodels.org/dataModel.Weather/WeatherObserved"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve WeatherForecast",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/?type=https://smartdatamodels.org/dataModel.Weather/WeatherForecast",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "https://smartdatamodels.org/dataModel.Weather/WeatherForecast"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create TripRequest",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"triprequest_id\", \"urn:ngsi-ld:TripRequest:\"+_.random(1,100000));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"startLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"targetLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"id\": \"{{triprequest_id}}\",\n  \"type\": \"TripRequest\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve TripRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{triprequest_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"{{triprequest_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve TripProposals",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/?type=TripProposal&q=request=={{triprequest_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "TripProposal"
+						},
+						{
+							"key": "q",
+							"value": "request=={{triprequest_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Trip",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"trip_id\", \"urn:ngsi-ld:Trip:\"+_.random(1,100000));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"pickupTime\": {\n    \"type\": \"Property\",\n    \"value\": \"2024-08-08T14:33:06Z\"\n  },\n  \"pickupLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    }\n  },\n  \"requestedAdults\": {\n    \"type\": \"Property\",\n    \"value\": 1\n  },\n  \"id\": \"{{trip_id}}\",\n  \"type\": \"Trip\",\n  \"dropoffLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    }\n  },\n  \"user\": {\n    \"type\": \"Property\",\n    \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"status\": {\n    \"type\": \"Property\",\n    \"value\": [\n      \"Unplanned\"\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Trip",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{trip_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"{{trip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Vehicle",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "fiware-service",
+						"value": "{{tenant}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{vehicle_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"{{cloud_url}}"
+					],
+					"path": [
+						"stellio",
+						"api",
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"{{vehicle_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "triprequest_id",
+			"value": ""
+		},
+		{
+			"key": "trip_id",
+			"value": ""
+		},
+		{
+			"key": "vehicle_id",
+			"value": "urn:ngsi-ld:vehicle:001"
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "client_secret",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "cloud_url",
+			"value": "nemobil.cloud"
+		},
+		{
+			"key": "tenant",
+			"value": "default_dataspace"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "context",
+			"value": "https://api.npoint.io/d66beea7313de1ad894c"
+		},
+		{
+			"key": "client_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
