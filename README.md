@@ -261,45 +261,40 @@ sequenceDiagram
 %% Benutzer definieren
 actor BT as Betreiber
 %% technische Teilnehmer/Componenten definieren
-participant DB as Dashboard/Schnittstelle
-participant VDG as Virtueller Nachfragegenerator
+participant DB as Dashboard/Schnittstelle (SICP)
+participant VDG as Nachfragegenerator (SICP)
 participant SICP as Flottenplanung (SICP)
 participant RW as Betriebsplanung (Reisewitz)
-participant LOG as Logging
 %%participant CB as Context Broker (FF)
-participant EXDS as External DataSpace
+participant EXDS as External Storage
 
 
 BT->>DB: Betriebsgebiet (inkl. Ladeinfrastruktur)
 BT->>DB: Randbedingungen & Optimierungskriterien
 BT->>DB: Nachfragedaten
+
 DB->>VDG: Nachfragedaten
-DB->>VDG: Randbedingungen
 VDG->>SICP: Nachfrageszenario
+DB->>SICP: Betriebsgebiet (inkl. Ladeinfrastruktur)
 DB->>SICP: Randbedingungen & Optimierungskriterien
-DB->>RW: Randbedingungen & Optimierungskriterien
-DB->>RW: Betriebsgebiet (inkl. Ladeinfrastruktur)
 
 
 loop Reoptimierung (interaktion mit Betreiber)
     loop Steuerungsheuristik
         SICP->>RW: Flottenportfolio
-        loop Tagessimulation
-            SICP->>RW: Anfrage
-            RW->>LOG: Event
-        end
-        LOG->>SICP: Systemstatus
-
+        SICP->>RW: Nachfrageszenario
+        SICP->>RW: Betriebsgebiet (inkl. Ladeinfrastruktur)
+        SICP->>RW: Randbedingungen & Optimierungskriterien
+        RW->>SICP: KPIs
+        SICP->>EXDS: Speichern Zwischenergebnisse
+        SICP-->>SICP: Anpassung Flottenportfolio
     end
-    SICP->>EXDS: Speichern Ergebnisse der Flottenoptimierung
-    SICP->>DB: Flottenspezifikation & KPIs
+    SICP->>DB: Optimierungsergebnisse
 
-    DB->>BT: Flottenempfehlung
+    DB->>BT: Visualisierung der Optimierungsergebnisse
     alt Nicht akzeptiert
-        BT->>DB: Neue Randbedingungen und/oder Optimierungskriterien
-        DB->>VDG: Neue Randbedingungen
+        BT->>DB: Neue Randbedingungen & Optimierungskriterien
         DB->>SICP: Neue Randbedingungen & Optimierungskriterien
-        DB->>RW: Neue Randbedingungen & Optimierungskriterien
     else Akzeptiert
         break Bei akzeptiert
             BT->>BT: 
