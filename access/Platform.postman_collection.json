@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "f0f2689f-b0f8-4943-8be0-f9c970c63d2d",
 		"name": "Platform",
-		"description": "Collection of useful requests on the NeMo.Bil Platform, please run auth/GetToken for requesting a token.\n\nPlease fill in the missing credentials in this project's variables",
+		"description": "Collection of useful requests on the NeMo.Bil Platform, please run auth/GetToken for requesting a token.\n\nPlease create an Postman environment with the following entries \"client_secret\", \"username\" and \"password\" to make them accessable in the collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28627786"
 	},
@@ -39,6 +39,76 @@
 								"ngsi-ld",
 								"v1",
 								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve subscription",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions/urn:ngsi-ld:Subscription:2d3dd9f3-480c-4c40-84c7-11a4edd36bf5",
+							"protocol": "http",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"subscriptions",
+								"urn:ngsi-ld:Subscription:2d3dd9f3-480c-4c40-84c7-11a4edd36bf5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a subscription",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions/urn:ngsi-ld:Subscription:113938e8-288a-4bd2-bb23-53cf3fe2de29",
+							"protocol": "http",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"subscriptions",
+								"urn:ngsi-ld:Subscription:113938e8-288a-4bd2-bb23-53cf3fe2de29"
 							]
 						}
 					},
@@ -129,7 +199,7 @@
 								},
 								{
 									"key": "scope",
-									"value": "api:read api:write",
+									"value": "api:read api:write api:delete",
 									"type": "text"
 								},
 								{
@@ -288,7 +358,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"startLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"targetLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"id\": \"{{triprequest_id}}\",\n  \"type\": \"TripRequest\"\n}\n",
+					"raw": "{\n  \"startLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"targetLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"requestedAdults\": {\n    \"type\": \"Property\",\n    \"value\": 1\n  },\n  \"requestedChilds\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"luggage\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"skills\": {\n    \"type\": \"Property\",\n    \"value\": [\n      {\n        \"id\": \"urn:ngsi-ld:Skill:WheelChair\",\n        \"name\": \"WheelChair\"\n      }\n    ]\n  },\n  \"personalPreferences\": {\n    \"type\": \"Property\",\n    \"value\": {\n        \"allowCarpooling\": {\n        \"type\": \"Property\",\n        \"value\": false\n        },\n        \"toleratedDelayBefore\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        },\n        \"toleratedDelayAfter\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        }\n    }\n  },\n  \"id\": \"{{triprequest_id}}\",\n  \"type\": \"TripRequest\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -424,7 +494,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"pickupTime\": {\n    \"type\": \"Property\",\n    \"value\": \"2024-08-08T14:33:06Z\"\n  },\n  \"pickupLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    }\n  },\n  \"requestedAdults\": {\n    \"type\": \"Property\",\n    \"value\": 1\n  },\n  \"id\": \"{{trip_id}}\",\n  \"type\": \"Trip\",\n  \"dropoffLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    }\n  },\n  \"user\": {\n    \"type\": \"Property\",\n    \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"status\": {\n    \"type\": \"Property\",\n    \"value\": [\n      \"Unplanned\"\n    ]\n  }\n}",
+					"raw": "{\n  \"pickupTime\": {\n    \"type\": \"Property\",\n    \"value\": \"2024-08-08T14:33:06Z\"\n  },\n  \"pickupLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    }\n  },\n  \"id\": \"{{trip_id}}\",\n  \"type\": \"Trip\",\n  \"dropoffLocation\": {\n    \"type\": \"GeoProperty\",\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    }\n  },\n  \"personalPreferences\": {\n    \"type\": \"Property\",\n    \"value\": {\n        \"allowCarpooling\": {\n        \"type\": \"Property\",\n        \"value\": false\n        },\n        \"toleratedDelayBefore\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        },\n        \"toleratedDelayAfter\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        }\n    }\n  },\n  \"skills\": {\n    \"type\": \"Property\",\n    \"value\": [\n      {\n        \"id\": \"urn:ngsi-ld:Skill:WheelChair\",\n        \"name\": \"WheelChair\"\n      }\n    ]\n  },\n  \"requestedAdults\": {\n    \"type\": \"Property\",\n    \"value\": 1\n  },\n  \"requestedChilds\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"luggage\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"user\": {\n    \"type\": \"Property\",\n    \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"status\": {\n    \"type\": \"Property\",\n    \"value\": [\n      \"Unplanned\"\n    ]\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -564,19 +634,7 @@
 		},
 		{
 			"key": "vehicle_id",
-			"value": "urn:ngsi-ld:vehicle:001"
-		},
-		{
-			"key": "username",
-			"value": ""
-		},
-		{
-			"key": "client_secret",
-			"value": ""
-		},
-		{
-			"key": "password",
-			"value": ""
+			"value": "urn:ngsi-ld:vehicle:cab0001"
 		},
 		{
 			"key": "cloud_url",
@@ -596,7 +654,7 @@
 		},
 		{
 			"key": "client_id",
-			"value": "",
+			"value": "api-access",
 			"type": "string"
 		}
 	]
