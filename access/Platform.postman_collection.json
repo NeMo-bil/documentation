@@ -721,6 +721,41 @@
 					"response": []
 				},
 				{
+					"name": "Get all Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{vehicle_id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{vehicle_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Set next location",
 					"request": {
 						"method": "PATCH",
@@ -856,6 +891,112 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Schedule",
+			"item": [
+				{
+					"name": "Create Schedule",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"tripproposal_id\", \"urn:ngsi-ld:TripProposal:\"+_.random(1,100000));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pickupLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"dropoffLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"targetTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T13:00:00Z\"\n  },\n  \"proposalReleaseTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },  \n  \"request\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:TripRequest:45440\"\n  }, \n  \"costs\": {\n        \"type\": \"Property\",\n        \"value\": 12.0\n  },\n  \"id\": \"{{tripproposal_id}}\",\n  \"type\": \"TripProposal\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set schedule for vehicle",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Unlocked\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{vehicle_id}}/attrs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{vehicle_id}}",
+								"attrs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -923,6 +1064,10 @@
 			"key": "client_id",
 			"value": "api-access",
 			"type": "string"
+		},
+		{
+			"key": "schedule_id",
+			"value": ""
 		}
 	]
 }
