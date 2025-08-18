@@ -80,6 +80,49 @@
 					"response": []
 				},
 				{
+					"name": "Create subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Notify Tim Test if a vehicle is created\",\n    \"type\": \"Subscription\",\n    \"entities\": [\n        {\n            \"type\": \"Vehicle\"\n        }\n    ],\n    \"watchedAttributes\": [\n        \"licensePlate\"\n    ],\n    \"notificationTrigger\": [\n        \"entityCreated\"\n    ],\n    \"notification\": {\n        \"format\": \"keyValues\",\n        \"endpoint\": {\n            \"uri\": \"https://timtest.free.beeceptor.com\",\n            \"accept\": \"application/json\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions",
+							"protocol": "http",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Remove a subscription",
 					"request": {
 						"method": "DELETE",
@@ -96,7 +139,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions/urn:ngsi-ld:Subscription:113938e8-288a-4bd2-bb23-53cf3fe2de29",
+							"raw": "http://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/subscriptions/urn:ngsi-ld:Subscription:3d7ff56e-d197-498f-bb4a-2545310a9a39",
 							"protocol": "http",
 							"host": [
 								"api",
@@ -108,7 +151,7 @@
 								"ngsi-ld",
 								"v1",
 								"subscriptions",
-								"urn:ngsi-ld:Subscription:113938e8-288a-4bd2-bb23-53cf3fe2de29"
+								"urn:ngsi-ld:Subscription:3d7ff56e-d197-498f-bb4a-2545310a9a39"
 							]
 						}
 					},
@@ -361,7 +404,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"startLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"targetLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },\n  \"requestedAdults\": {\n    \"type\": \"Property\",\n    \"value\": 1\n  },\n  \"requestedChilds\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"luggage\": {\n    \"type\": \"Property\",\n    \"value\": 0\n  },\n  \"skills\": {\n    \"type\": \"Property\",\n    \"value\": [\n      {\n        \"id\": \"urn:ngsi-ld:Skill:WheelChair\",\n        \"name\": \"WheelChair\"\n      }\n    ]\n  },\n  \"personalPreferences\": {\n    \"type\": \"Property\",\n    \"value\": {\n        \"allowCarpooling\": {\n        \"type\": \"Property\",\n        \"value\": false\n        },\n        \"toleratedDelayBefore\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        },\n        \"toleratedDelayAfter\": {\n        \"type\": \"Property\",\n        \"value\": 1\n        }\n    }\n  },\n  \"id\": \"{{triprequest_id}}\",\n  \"type\": \"TripRequest\"\n}\n",
+							"raw": "{\n    \"startLocation\": {\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n              51.71853376403251,\n\t\t\t\t\t8.7579629368312\n            ]\n        },\n        \"type\": \"GeoProperty\"\n    },\n    \"targetLocation\": {\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n               51.70984201,\n\t\t\t\t\t8.79883833\n            ]\n        },\n        \"type\": \"GeoProperty\"\n    },\n    \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2025-07-10T18:00:00Z\"\n    },\n    \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n    },\n    \"requestedAdults\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    },\n    \"requestedChilds\": {\n        \"type\": \"Property\",\n        \"value\": 0\n    },\n    \"luggage\": {\n        \"type\": \"Property\",\n        \"value\": 0\n    },\n    \"personalPreferences\": {\n        \"type\": \"Property\",\n        \"value\": {\n            \"allowCarpooling\": {\n                \"type\": \"Property\",\n                \"value\": false\n            },\n            \"toleratedDelayBefore\": {\n                \"type\": \"Property\",\n                \"value\": 1\n            },\n            \"toleratedDelayAfter\": {\n                \"type\": \"Property\",\n                \"value\": 1\n            }\n        }\n    },\n    \"id\": \"{{triprequest_id}}\",\n    \"type\": \"TripRequest\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -623,6 +666,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get all Trips",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities?type=Trip",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Trip"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -659,7 +742,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"location\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                1.2,\n                3.4\n            ]\n        }\n    },\n    \"nextStopLocation\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                1.2,\n                3.4\n            ]\n        }\n    },\n    \"id\": \"urn:ngsi-ld:vehicle:cab0001\",\n    \"type\": \"Vehicle\",\n    \"shortId\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    },\n    \"licensePlate\": {\n        \"type\": \"Property\",\n        \"value\": \"PB-NEMO 1\"\n    },\n    \"nextStopArrival\": {\n        \"type\": \"Property\",\n        \"value\": \"2025-02-02T10:18:16Z\"\n    },\n    \"vehicleScheduleGuid\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:VehicleSchedule:11ea1c5c-5aa6-11e3-8244-4b82063ca31c\"\n    },\n    \"stateOfSchedule\": {\n        \"type\": \"Property\",\n        \"value\": \"Running\"\n    },\n    \"batteryLevel\": {\n        \"type\": \"Property\",\n        \"value\": 50.0\n    },\n    \"fuelLevel\": {\n        \"type\": \"Property\",\n        \"value\": 50.0\n    },\n    \"remainingRange\": {\n        \"type\": \"Property\",\n        \"value\": 250.0\n    },\n    \"consumption\": {\n        \"type\": \"Property\",\n        \"value\": 1000.0\n    },\n    \"consumedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 1000.0\n    },\n    \"state\": {\n        \"type\": \"Property\",\n        \"value\": \"Idle\"\n    },\n    \"bearing\": {\n        \"type\": \"Property\",\n        \"value\": 30.0\n    },\n    \"speed\": {\n        \"type\": \"Property\",\n        \"value\": 10.0\n    },\n    \"acceleration\": {\n        \"type\": \"Property\",\n        \"value\": [\n            1.0,\n            0.0\n        ]\n    },\n    \"deviation\": {\n        \"type\": \"Property\",\n        \"value\": 10.0\n    },\n    \"chargingPower\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"chargedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"mileageFromOdometer\": {\n        \"type\": \"Property\",\n        \"value\": 1000\n    },\n    \"chainedVehicles\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    },\n    \"chainedPosition\": {\n        \"type\": \"Property\",\n        \"value\": 0\n    },\n    \"toBeChainedVehicles\": {\n        \"type\": \"Property\",\n        \"value\": [\n            \"urn:ngsi-ld:Vehicle:11ea1c5c-5aa6-11e3-8244-4b82063ca31c\"\n        ]\n    },\n    \"suppliedPower\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"suppliedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"features\": {\n        \"type\": \"Property\",\n        \"value\": [\n            {\n                \"id\": \"urn:ngsi-ld:Skill:WheelChair\",\n                \"name\": \"WheelChair\"\n            }\n        ]\n    },\n    \"sensors\": {\n        \"type\": \"Property\",\n        \"value\": [\n            {\n                \"name\": \"Engine\",\n                \"temperature\": 90.0\n            }\n        ]\n    },\n    \"hydrogenTanks\": {\n        \"type\": \"Property\",\n        \"value\": [\n            \"urn:ngsi-ld:HydrogenTank:11ea1c5c-5aa6-11e3-8244-4b32063ca31c\"\n        ]\n    },\n    \"batteryCurrent\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"inverterCurrent\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"batteryVoltage\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"batteryPower\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"pressureHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"concentrationHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 1.0\n    },\n    \"massFlowHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"stateADStack\": {\n        \"type\": \"Property\",\n        \"value\": \"Idle\"\n    },\n    \"stateCoupling\": {\n        \"type\": \"Property\",\n        \"value\": \"Free\"\n    },\n    \"passengerInformation\": {\n        \"type\": \"Property\",\n        \"value\": \"Welcome\"\n    },\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Locked\"\n    }\n}",
+							"raw": "{\n    \"location\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n               51.71793184,\n\t\t\t\t\t8.75844747\n            ]\n        }\n    },\n    \"nextStopLocation\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                51.71793184,\n\t\t\t\t\t8.75844747\n            ]\n        }\n    },\n    \"id\": \"urn:ngsi-ld:vehicle:cab0001\",\n    \"type\": \"Vehicle\",\n    \"shortId\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    },\n    \"licensePlate\": {\n        \"type\": \"Property\",\n        \"value\": \"PB-NEMO 1\"\n    },\n    \"nextStopArrival\": {\n        \"type\": \"Property\",\n        \"value\": \"2025-02-02T10:18:16Z\"\n    },\n    \"stateOfSchedule\": {\n        \"type\": \"Property\",\n        \"value\": \"Active\"\n    },\n    \"batteryLevel\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"fuelLevel\": {\n        \"type\": \"Property\",\n        \"value\": 50.0\n    },\n    \"remainingRange\": {\n        \"type\": \"Property\",\n        \"value\": 250.0\n    },\n    \"consumption\": {\n        \"type\": \"Property\",\n        \"value\": 0.01\n    },\n    \"consumedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 1000.0\n    },\n    \"state\": {\n        \"type\": \"Property\",\n        \"value\": \"Idle\"\n    },\n    \"bearing\": {\n        \"type\": \"Property\",\n        \"value\": 30.0\n    },\n    \"speed\": {\n        \"type\": \"Property\",\n        \"value\": 10.0\n    },\n    \"acceleration\": {\n        \"type\": \"Property\",\n        \"value\": [\n            1.0,\n            0.0\n        ]\n    },\n    \"deviation\": {\n        \"type\": \"Property\",\n        \"value\": 10.0\n    },\n    \"chargingPower\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"chargedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"mileageFromOdometer\": {\n        \"type\": \"Property\",\n        \"value\": 1000\n    },\n    \"chainedVehicles\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    },\n    \"chainedPosition\": {\n        \"type\": \"Property\",\n        \"value\": 0\n    },\n    \"toBeChainedVehicles\": {\n        \"type\": \"Property\",\n        \"value\": []\n    },\n    \"suppliedPower\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"suppliedEnergy\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"features\": {\n        \"type\": \"Property\",\n        \"value\": [\n            {\n                \"id\": \"urn:ngsi-ld:Skill:WheelChair\",\n                \"name\": \"WheelChair\"\n            }\n        ]\n    },\n    \"sensors\": {\n        \"type\": \"Property\",\n        \"value\": [\n            {\n                \"name\": \"Engine\",\n                \"temperature\": 90.0\n            }\n        ]\n    },\n    \"batteryCurrent\": {\n        \"type\": \"Property\",\n        \"value\": 11000.0\n    },\n    \"inverterCurrent\": {\n        \"type\": \"Property\",\n        \"value\": 11000.0\n    },\n    \"batteryVoltage\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"batteryPower\": {\n        \"type\": \"Property\",\n        \"value\": 11000.0\n    },\n    \"pressureHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"concentrationHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 1.0\n    },\n    \"massFlowHydrogen\": {\n        \"type\": \"Property\",\n        \"value\": 100.0\n    },\n    \"stateADStack\": {\n        \"type\": \"Property\",\n        \"value\": \"Idle\"\n    },\n    \"stateCoupling\": {\n        \"type\": \"Property\",\n        \"value\": \"Free\"\n    },\n    \"passengerInformation\": {\n        \"type\": \"Property\",\n        \"value\": \"Welcome\"\n    },\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Locked\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -702,7 +785,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{vehicle_id}}",
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/urn:ngsi-ld:vehicle:cab0001",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -714,16 +797,16 @@
 								"ngsi-ld",
 								"v1",
 								"entities",
-								"{{vehicle_id}}"
+								"urn:ngsi-ld:vehicle:cab0001"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get all Vehicles",
+					"name": "Delete Vehicle",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Link",
@@ -756,6 +839,83 @@
 					"response": []
 				},
 				{
+					"name": "Clear vehicle chained state",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{vehicle_id}}/attrs/toBeChainedVehicles",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{vehicle_id}}",
+								"attrs",
+								"toBeChainedVehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities?type=Vehicle",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Vehicle"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Set next location",
 					"request": {
 						"method": "PATCH",
@@ -773,7 +933,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Unlocked\"\n    }\n}",
+							"raw": "{\n    \"nextStopLocation\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                51.717931844437274, 8.758447466498541\n            ]\n        }\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -818,7 +978,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Unlocked\"\n    }\n}",
+							"raw": "{    \n    \"toBeChainedVehicles\": {\n        \"type\": \"Property\",\n        \"value\": [\"urn:ngsi-ld:Vehicle:cab0001\",\"urn:ngsi-ld:Vehicle:cab0002\"]\n    },\n    \"chainedPosition\": {\n        \"type\": \"Property\",\n        \"value\": 1\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -902,7 +1062,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"tripproposal_id\", \"urn:ngsi-ld:TripProposal:\"+_.random(1,100000));"
+									"pm.collectionVariables.set(\"schedule_id\", \"urn:ngsi-ld:Schedule:\"+_.random(1,100000));"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -925,7 +1085,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"pickupLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        54.72977672550465,\n        13.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"dropoffLocation\": {\n    \"value\": {\n      \"type\": \"Point\",\n      \"coordinates\": [\n        52.72977672550465,\n        8.753316940440714\n      ]\n    },\n    \"type\": \"GeoProperty\"\n  },\n  \"pickupTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"targetTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T13:00:00Z\"\n  },\n  \"proposalReleaseTime\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"user\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:User:user1\"\n  },  \n  \"request\": {\n        \"type\": \"Property\",\n        \"value\": \"urn:ngsi-ld:TripRequest:45440\"\n  }, \n  \"costs\": {\n        \"type\": \"Property\",\n        \"value\": 12.0\n  },\n  \"id\": \"{{tripproposal_id}}\",\n  \"type\": \"TripProposal\"\n}\n",
+							"raw": "{\n  \"timeRangeFrom\": {\n        \"type\": \"Property\",\n        \"value\": \"2024-08-09T12:00:00Z\"\n  },\n  \"timeRangeTo\": {\n        \"type\": \"Property\",\n        \"value\": \"2026-08-09T13:00:00Z\"\n  },\n  \"id\": \"{{schedule_id}}\",\n  \"type\": \"Schedule\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -969,7 +1129,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"doorLock\": {\n        \"type\": \"Property\",\n        \"value\": \"Unlocked\"\n    }\n}",
+							"raw": "{\n    \"vehicleScheduleGuid\": {\n        \"type\": \"Property\",\n        \"value\": \"{{schedule_id}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -991,6 +1151,41 @@
 								"entities",
 								"{{vehicle_id}}",
 								"attrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{schedule_id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{schedule_id}}"
 							]
 						}
 					},
