@@ -11,7 +11,7 @@ sequenceDiagram
 actor User
 %% technische Teilnehmer/Componenten definieren
 participant App as Nutzeranwendung
-participant CB as Context Broker (FF)
+participant CB as Context Broker
 
 Note right of User: Nutzer ist registriert und eingeloggt
 User->>App: Ich möchte eine Fahrt buchen
@@ -41,10 +41,11 @@ sequenceDiagram
 %% autonumber
 %% Benutzer definieren
 %% technische Teilnehmer/Componenten definieren
-participant CB as Context Broker (FF)
-participant App as Nutzeranwendung
-participant Cab
+
 actor User
+participant App as Nutzeranwendung
+participant CB as Context Broker
+participant Cab
 
 CB->>Cab: Spezifisches Cab bekommt Pickup Location
 Note left of Cab: Cab macht sich auf den Weg zum Kunden
@@ -97,7 +98,7 @@ actor User
 participant App as Nutzeranwendung
 participant ID as Identity Service
 participant KC as Keycloak
-participant CB as Context Broker (FF)
+participant CB as Context Broker
 
 User->>App: Erstellt Nutzer mit Namen und Email Addresse
 App->>ID: Nutzerregistrierung erstellen
