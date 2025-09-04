@@ -64,16 +64,16 @@ User->>App: Nutzer bestätigt in seiner App die Ankunft und gibt die Türe frei
 App->>CB: Gibt die Türe frei
 CB->>Cab: Tür entriegeln
 
-Note right of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
+Note left of Cab: Nutzer steigt ein, schnallt sich an und macht die Türe zu. Fahrzeug prüft und gibt Fahrt frei wenn Nutzer ok gibt (TODO genauer spezifizieren)
 
 User->>CB: User gibt Fahrt über Bordcomputer oder App frei
 CB->>Cab: Tür verriegeln
 
-Note right of Cab: Cab fährt zum Zielort
+Note left of Cab: Cab fährt zum Zielort
 loop Update
 Cab->>Cab: Bordcomputer wird mit aktuellem Standort and Ankunftszeit aktualisiert
 end
-Note right of Cab: Cab ist am Zielort angekommen
+Note left of Cab: Cab ist am Zielort angekommen
 
 Cab->>Cab: Cab parkt und ermöglicht das entriegeln der Türen
 User->>CB: Nutzer entriegelt Türe
