@@ -347,6 +347,45 @@ end
 
 ### RW: Sonderfahrtaufträge abwickeln (Laden, Reparatur, Parken, Fehler/Störungen…)
 
+```mermaid
+sequenceDiagram
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+%%actor User
+%% technische Teilnehmer/Componenten definieren
+participant RW as Operative Planung (Reisewitz)
+participant CB as Context Broker (FF)
+participant Cab
+participant Betreiber
+
+alt Betreiber initiiert Sonderfahrt für spezielles Cab
+    Betreiber->>CB: Fahrtanfrage mit hoher Prio mit Ziel einer Sonderfahrt für spezielles Cab, damit diese in den Fahrplan aufgenommen wird
+    CB->>RW: Fahrt wird in den Cab Fahrplan aufgenommen. Evtl. werden andere Aufträge umgeplant
+    RW->>CB: Cab bekommt Fahrtziel Location (Wartung, Störung,  etc.)
+else Cab steuert eine geplante Ladesäule oder einen Parkplatz an
+    RW->>CB: Cab bekommt Fahrtziel Location Ladesäule oder Parkplatz
+end
+
+CB->>Cab: Cab bekommt Fahrtziel Location mit Zielzeit
+Note left of Cab: Cab macht sich auf den Weg zum Ziel
+
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
+    Cab->>CB: Cab meldet kontinuierlich seine Daten
+End
+
+Cab->>CB: Cab meldet, dass es am Ziel angekommen ist
+CB->>RW: Information, dass das Cab am Ziel angekommen ist, wird weitergegeben
+Cab->Betreiber: Cab wird in Empfang genommen (Ladestecker, Fahrzeug wird manuell bedient)
+Note left of Betreiber: Wenn das Cab wieder zur Verfügung steht
+Betreiber->>CB: Sonderfahrt wird als erledigt markiert
+CB->>RW: Stopp wird als erledigt markiert
+Note left of RW: Cab bekommt einen neuen Auftrag/Stopp
+loop Cab meldet seine Daten (Position, Ankunftszeit, Zustand, etc.)
+Cab->>CB: Cab meldet kontinuierlich seine Daten
+end
+```
+
 ### RW: Fahrtausfälle für den Nutzer alternativ lösen
 
 ```mermaid
