@@ -60,7 +60,7 @@ Verifizieren, dass ein Verbraucher über den Datenraum korrekt Daten anfordern, 
 * **Leistung:** Antwortzeit ≤ 500 ms bei n = 50 parallelen Anfragen
 * **Sicherheit/Compliance:**
 
-  * OIDC-Token gültig
+  * Token gültig
   * TLS-Verbindung (≥ 1.3) aktiv
   * Keine PII im Log gespeichert
 * **Zuverlässigkeit:**

@@ -21,7 +21,7 @@ Verifizieren, dass ein Anbieter Daten erfolgreich über den EDC im Datenraum reg
 * Der Datenraum ist aktiv und erreichbar (API-Endpunkte verfügbar).
 * EDC-Instanzen von Anbieter und Verbraucher sind registriert und verfügen über gültige Zertifikate.
 * Der Anbieter ist im Datenraum als Datenquelle registriert.
-* Der Verbraucher besitzt eine gültige Identität (OIDC oder DID).
+* Der Verbraucher besitzt eine gültige Identität (Token oder DID).
 * Der Vertragstyp für Datennutzung (Data Usage Agreement Template) ist im EDC vorhanden.
 
 ---
@@ -82,7 +82,7 @@ Verifizieren, dass ein Anbieter Daten erfolgreich über den EDC im Datenraum reg
   * Abruf ≤ 500 ms bei n = 50 parallelen Anfragen
 * **Sicherheit/Compliance:**
 
-  * Authentifizierung über OIDC/DID erfolgreich
+  * Authentifizierung über Token/DID erfolgreich
   * TLS-Verbindung (≥ 1.3) aktiv
   * Keine sensiblen Daten im Log gespeichert
 * **Zuverlässigkeit:**
