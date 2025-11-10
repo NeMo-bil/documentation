@@ -5,7 +5,7 @@ Ziel/Nutzen: Grundlegende Funktionalität ohne Störfaktoren
 Risiko: Mittel  | Priorität: P2
 Akteure/Rollen: Nutzer, Operative Planung, Plattform
 Voraussetzungen (Preconditions):
-- mindestens ein Cab steht im Gebiet zur Verfügung (ohne Fahrauftrag, Batterie ausreichen gefüllt)
+- mindestens ein Cab steht im Gebiet zur Verfügung (ohne Fahrauftrag, Batterie ausreichend gefüllt)
 Testdaten:
 - Eingaben:
     - Startort: Stadtzentrum Paderborn: 51.717931844437274, 8.758447466498541
