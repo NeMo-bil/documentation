@@ -19,7 +19,7 @@ Schritte (Given/When/Then):
 
 Nicht-funktionale Kriterien:
 - Leistung: <z. B. ≤ 500 ms @ n=50>
-- Sicherheit/Compliance: <z. B. OIDC-Fluss gültig, PII maskiert>
+- Sicherheit/Compliance: <z. B. Token gültig, PII maskiert>
 - Zuverlässigkeit: <Retries, Idempotenz>
 
 Abhängigkeiten/Mocks:

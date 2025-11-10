@@ -22,7 +22,7 @@ Verifizieren, dass ein Verbraucher über den Datenraum korrekt Daten anfordern, 
 * EDC-Instanzen von Verbraucher und Anbieter sind registriert und verfügen über gültige Zertifikate.
 * Ein Datenvertrag („Data Usage Agreement“) liegt im EDC vor und ist gültig.
 * Der Verbraucher besitzt Berechtigung, Daten des Anbieters anzufordern.
-* Authentifizierung über OIDC oder DID erfolgreich abgeschlossen.
+* Authentifizierung über Token oder DID erfolgreich abgeschlossen.
 
 ---
 

@@ -22,7 +22,7 @@ Verifizieren, dass ein Serviceanbieter erfolgreich einen API-Service über den E
 * EDC-Instanzen von Anbieter und Nutzer sind registriert und verfügen über gültige Zertifikate.
 * Der Serviceanbieter besitzt gültige Bereitstellungsrechte im Datenraum.
 * Ein Servicevertragstemplate („Service Access Agreement“) ist im EDC verfügbar.
-* OIDC/DID-Authentifizierung erfolgreich abgeschlossen.
+* Token/DID-Authentifizierung erfolgreich abgeschlossen.
 * Der API-Endpunkt des Serviceanbieters ist betriebsbereit und erreichbar.
 
 ---
