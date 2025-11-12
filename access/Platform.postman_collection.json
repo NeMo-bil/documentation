@@ -1192,6 +1192,276 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Demo",
+			"item": [
+				{
+					"name": "Set next location",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nextStopLocation\": {\n        \"type\": \"GeoProperty\",\n        \"value\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                51.717931844437274, 8.758447466498541\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/urn:ngsi-ld:vehicle:cab0001/attrs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:vehicle:cab0001",
+								"attrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicle",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/urn:ngsi-ld:vehicle:cab0001",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"urn:ngsi-ld:vehicle:cab0001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"user_id\", \"urn:ngsi-ld:User:\"+_.random(1,100000));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"surname\": {\n    \"type\": \"Property\",\n    \"value\": \"someSurname\"\n  },\n  \"id\": \"{{user_id}}\",\n  \"type\": \"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": {\n        \"type\": \"Property\",\n        \"value\": \"someFirstName\"\n    },\n    \"keycloakId\": {\n        \"type\": \"Property\",\n        \"value\": \"keycloakUUID\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{user_id}}/attrs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{user_id}}",
+								"attrs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities/{{user_id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve User by keycloak id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Link",
+								"value": "<{{context}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+								"type": "text"
+							},
+							{
+								"key": "fiware-service",
+								"value": "{{tenant}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{cloud_url}}/stellio/api/ngsi-ld/v1/entities?type=User&q=keycloakId==\"keycloakUUID\"",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{cloud_url}}"
+							],
+							"path": [
+								"stellio",
+								"api",
+								"ngsi-ld",
+								"v1",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "User"
+								},
+								{
+									"key": "q",
+									"value": "keycloakId==\"keycloakUUID\""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -1262,6 +1532,10 @@
 		},
 		{
 			"key": "schedule_id",
+			"value": ""
+		},
+		{
+			"key": "user_id",
 			"value": ""
 		}
 	]
