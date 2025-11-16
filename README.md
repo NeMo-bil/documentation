@@ -440,9 +440,58 @@ EDC-->>Verbraucher: Daten geliefert
 
 ### SICP: Flottenplanung mit Szenarien ermöglichen und durchführen
 
-### SICP (neu): Portfolio festlegen
+```mermaid
+sequenceDiagram
+%% Flottenplanung mit Szenarien ermöglichen und durchführen
+%% 
+%% auskommentieren wenn wir Details zur Kommunikation aufschreiben
+%% autonumber
+%% Benutzer definieren
+actor BT as Betreiber
+%% technische Teilnehmer/Componenten definieren
+participant DB as Dashboard/Schnittstelle (SICP)
+participant VDG as Nachfragegenerator (SICP)
+participant SICP as Flottenplanung (SICP)
+participant RW as Betriebsplanung (Reisewitz)
+%%participant CB as Context Broker (FF)
+participant EXDS as External Storage
 
-### SICP: Optimierungs- und Szenarienparameter erfassen und bearbeiten
+
+BT->>DB: Betriebsgebiet (inkl. Ladeinfrastruktur)
+BT->>DB: Randbedingungen & Optimierungskriterien
+BT->>DB: Nachfragedaten
+
+DB->>VDG: Nachfragedaten
+VDG->>SICP: Nachfrageszenario
+DB->>SICP: Betriebsgebiet (inkl. Ladeinfrastruktur)
+DB->>SICP: Randbedingungen & Optimierungskriterien
+
+
+loop Reoptimierung (interaktion mit Betreiber)
+    loop Steuerungsheuristik
+        SICP->>RW: Flottenportfolio
+        SICP->>RW: Nachfrageszenario
+        SICP->>RW: Betriebsgebiet (inkl. Ladeinfrastruktur)
+        SICP->>RW: Randbedingungen & Optimierungskriterien
+        RW->>SICP: KPIs
+        SICP->>EXDS: Speichern Zwischenergebnisse
+        SICP-->>SICP: Anpassung Flottenportfolio
+    end
+    SICP->>DB: Optimierungsergebnisse
+
+    DB->>BT: Visualisierung der Optimierungsergebnisse
+    alt Nicht akzeptiert
+        BT->>DB: Neue Randbedingungen & Optimierungskriterien
+        DB->>SICP: Neue Randbedingungen & Optimierungskriterien
+    else Akzeptiert
+        break Bei akzeptiert
+            BT->>BT: 
+        end
+        BT->>DB: Finales Flottenportfolio
+    end
+end
+DB->>EXDS: Finales Flottenportfolio
+```
 
 ### FF - Dashboarding (neu): Betriebsdaten (operativ und wirtschaftlich) darstellen, monitoren (alerten), analysieren und reporten
 ```mermaid
