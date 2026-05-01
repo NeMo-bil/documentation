@@ -3,20 +3,21 @@
 ## Zweck
 
 Verifiziert die Konvoi-Logik des Systems: Bei längeren Strecken
-sollen Cabs nicht alleine fahren, sondern an einem Kopplungsort auf
-einen Pro auffahren, mitfahren und am nächsten Kopplungsort wieder
-abkoppeln.
+sollen Cabs nicht alleine fahren, sondern an einem Kopplungsort per
+Kupplung an ein Pro angehängt werden, mit dem Pro fahren und am
+nächsten Kopplungsort wieder abgekuppelt werden.
 
 ## Hintergrund
 
 Das System unterscheidet zwei Fahrmodi:
 
-- **Direktfahrt**: Das Cab fährt die gesamte Strecke selbst. Sinnvoll
-  bei kurzen Distanzen.
-- **Konvoi**: Das Cab fährt zum nächsten Kopplungsort, koppelt an einen
-  Pro an, lässt sich auf der Hauptstrecke energiesparend mitschleppen,
-  koppelt am Ziel-Kopplungsort wieder ab und fährt die letzten Meter
-  selbständig.
+- **Direktfahrt**: Das elektrische Cab fährt die gesamte Strecke
+  selbst. Sinnvoll bei kurzen Distanzen.
+- **Konvoi**: Das Cab fährt zum nächsten Kopplungsort, wird dort per
+  Kupplung an ein wasserstoffbetriebenes Pro angehängt, fährt
+  zusammen mit dem Pro über die Hauptstrecke (und wird dabei über
+  die Kupplung gleichzeitig nachgeladen), wird am Ziel-Kopplungsort
+  wieder abgekuppelt und fährt die letzten Meter selbständig.
 
 Der Konvoi-Modus wird ab einer in der Planungskonfiguration
 einstellbaren Streckenschwelle eingesetzt. Dieser Test zielt auf eine
@@ -52,7 +53,10 @@ Funktionalität: Fahrtanfrage mit Konvoi-Beförderung
 
 - Der Konvoi-Abschnitt wird intern im Vorschlag hinterlegt; der Fahrgast
   erhält die geplante Gesamtdauer als Information, nicht zwingend die
-  Details des Kopplungsmanövers.
+  Details des Kupplungsmanövers.
 - Auf Strecken unterhalb der Schwelle wählt der Optimierer auch bei
-  vorhandenem Pro die Direktfahrt, weil das An- und Abkoppeln Zeit
-  kostet und sich nur ab einer gewissen Mitfahrdistanz lohnt.
+  vorhandenem Pro die Direktfahrt, weil das An- und Abkuppeln Zeit
+  kostet und sich nur ab einer gewissen gemeinsamen Strecke lohnt.
+- Ein Nebeneffekt der Konvoi-Fahrt: Das Cab erreicht das Ziel mit
+  höherem Akkustand als zu Beginn, weil über die Kupplung während
+  der Fahrt geladen wird.

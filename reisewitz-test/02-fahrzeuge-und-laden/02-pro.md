@@ -7,22 +7,28 @@ Fehlerverhalten bei ungültigen oder nicht vorhandenen Daten.
 
 ## Hintergrund
 
-Ein **Pro** ist ein großes Trägerfahrzeug, das mehrere **Cabs** auf
-längeren Strecken im Konvoi mitnehmen kann. Cabs fahren selbständig
-zum **Kopplungsort**, koppeln dort an den Pro an, lassen sich
-energieeffizient mitschleppen und koppeln am nächsten Kopplungsort
-wieder ab, um die letzten Kilometer wieder selbständig zu fahren.
+Ein **Pro** ist ein großes, **mit Wasserstoff betriebenes**
+Zugfahrzeug. Auf längeren Strecken werden mehrere **Cabs** per
+Kupplung an das Pro angehängt; das Pro zieht die Cabs als Verbund.
+Über dieselbe Kupplung lädt das Pro die Akkus der angehängten Cabs
+während der Fahrt nach. Cabs fahren selbständig zum
+**Kopplungsort**, werden dort angekuppelt, fahren mit dem Pro bis
+zum Ziel-Kopplungsort, werden dort wieder abgekuppelt und legen
+die letzten Kilometer eigenständig zurück — typischerweise mit
+deutlich höherem Akkustand als zu Beginn der Konvoi-Fahrt.
 
 Jeder Pro besitzt:
 - eine eindeutige Kennung und ein Kennzeichen,
 - einen Schichtplan (Verfügbarkeitsfenster mit Start- und Endzeit),
 - einen Fahrzeugtyp (verweist auf eine Fahrzeugtyp-Einstellung mit dem
   passenden Routing-Profil),
-- Energiedaten (Gesamt- und Anfangs-Akkukapazität, Verbrauchsangaben),
-- die maximale Anzahl mitnehmbarer Cabs,
-- eine optionale Liste zusätzlicher Energieverbräuche pro mitgenommenem
-  Cab (für genauere Reichweitenrechnung),
-- die maximale Ladeleistung, die der Pro selbst empfangen kann,
+- Energiedaten (Gesamt- und Anfangs-Energievorrat des Wasserstofftanks,
+  Verbrauchsangaben),
+- die maximale Anzahl gleichzeitig angekuppelter Cabs,
+- eine optionale Liste zusätzlicher Verbräuche pro angekuppeltem Cab
+  (für genauere Reichweitenrechnung),
+- die maximale Ladeleistung, mit der das Pro die angekuppelten Cabs
+  versorgen kann,
 - einen Startort.
 
 ## Voraussetzungen
@@ -42,8 +48,8 @@ Funktionalität: Verwaltung von Pros
 
   Szenario: Einen neuen Pro in den Einsatzplan aufnehmen
     Wenn ein Pro mit eindeutiger Kennung, Kennzeichen, Fahrzeugtyp,
-         Schichtplan, Startort, maximaler Cab-Anzahl
-         und vollständigen Energiedaten angelegt wird
+         Schichtplan, Startort, maximaler Anzahl gleichzeitig
+         angekuppelter Cabs und vollständigen Energiedaten angelegt wird
     Dann nimmt das System das Fahrzeug erfolgreich in den Einsatzplan auf
 
   Szenario: Einen vorhandenen Pro einzeln lesen
@@ -82,5 +88,9 @@ Funktionalität: Verwaltung von Pros
 - Pros werden nur eingeplant, wenn die Strecke einer Fahrtanfrage einen
   konfigurierten Schwellwert überschreitet — auf kurzen Strecken fährt
   das Cab direkt allein.
-- Die maximale Cab-Anzahl pro Pro beeinflusst, wie viele
-  Konvoi-Fahrten parallel gebildet werden können.
+- Die maximale Anzahl gleichzeitig angekuppelter Cabs pro Pro
+  beeinflusst, wie viele Konvoi-Fahrten parallel gebildet werden
+  können.
+- Die Ladefunktion über die Kupplung ergänzt die stationären
+  Ladepunkte: ein Cab nach einer Konvoi-Fahrt kann oft direkt in den
+  nächsten Auftrag gehen, ohne zusätzlich an eine Ladesäule zu fahren.

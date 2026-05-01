@@ -3,22 +3,23 @@
 ## Zweck
 
 Prüft den vollständigen Lebenszyklus von **Kopplungsorten**
-(ChainingLocations) — Orte, an denen ein Cab an ein Pro angekoppelt
-oder davon getrennt wird.
+(ChainingLocations) — Orte, an denen ein Cab per Kupplung an ein Pro
+angehängt oder von ihm wieder gelöst wird.
 
 ## Hintergrund
 
 Ein **Kopplungsort** ist eine geografische Zone (definiert durch einen
-Start- und einen Endpunkt), in der ein **Cab** auf einen **Pro**
-auffahren oder von ihm herunterfahren kann. Damit lassen sich längere
-Strecken energieeffizient als Konvoi zurücklegen: das große
-Trägerfahrzeug (Pro) bringt das Personenfahrzeug (Cab) auf die
-Schnellstraße.
+Start- und einen Endpunkt), in der ein **Cab** per Kupplung an ein
+**Pro** angehängt oder wieder von ihm gelöst werden kann. So lassen
+sich längere Strecken als Verbund energieeffizient zurücklegen: das
+wasserstoffbetriebene Zugfahrzeug Pro zieht die angekuppelten Cabs,
+und die Cabs verbrauchen dabei keine eigene Akkukapazität — ihr Akku
+wird über die Kupplung sogar während der Fahrt nachgeladen.
 
 Jeder Kopplungsort besitzt:
 - eine eindeutige Kennung,
 - einen Startpunkt und einen Endpunkt der Kopplungszone,
-- den erlaubten Vorgang (nur Ankoppeln, nur Abkoppeln, oder beides),
+- den erlaubten Vorgang (nur Ankuppeln, nur Abkuppeln, oder beides),
 - eine optionale zusätzliche Manöverzeit in Sekunden.
 
 ## Voraussetzungen
@@ -48,7 +49,7 @@ Funktionalität: Verwaltung von Kopplungsorten
 
 ## Bemerkungen
 
-- Der Vorgangstyp kann sein: nur Ankoppeln, nur Abkoppeln, oder
-  Ankoppeln und Abkoppeln am selben Ort.
+- Der Vorgangstyp kann sein: nur Ankuppeln, nur Abkuppeln, oder
+  Ankuppeln und Abkuppeln am selben Ort.
 - Start- und Endpunkt definieren eine kurze Strecke, auf der das
-  Manöver stattfindet (z. B. Ein-/Ausfädelspur einer Schnellstraße).
+  Manöver stattfindet.

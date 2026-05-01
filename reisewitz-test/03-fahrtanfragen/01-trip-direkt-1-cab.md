@@ -12,7 +12,7 @@ Dies ist der einfachste Trip-Fall: Eine Strecke, die ein einzelnes
 **Cab** allein bedienen kann (kein Konvoi nötig). Start und Ziel
 liegen beide im Betriebsgebiet, der Wunsch-Pickup-Zeitpunkt fällt in
 das Verfügbarkeitsfenster des Fahrzeugs, und die Fahrtdauer
-unterschreitet die Schwelle, ab der ein Pro-Trägerfahrzeug
+unterschreitet die Schwelle, ab der ein Pro als Zugfahrzeug
 hinzugezogen würde.
 
 ## Voraussetzungen

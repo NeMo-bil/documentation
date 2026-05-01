@@ -11,7 +11,7 @@ Die **Planungskonfiguration** bestimmt, wie der Optimierer
 Fahrtanfragen bearbeitet. Sie umfasst unter anderem:
 
 - **Toleranzen** für Fahrzeit und verbleibende Akkukapazität,
-- **Manöverzeiten** für Ein- und Aussteigen sowie An- und Abkoppeln,
+- **Manöverzeiten** für Ein- und Aussteigen sowie An- und Abkuppeln,
 - **Ladelogik-Schwellen** (ab welchem Akkustand wird zwingend geladen,
   ab welchem darf das Laden beendet werden),
 - die **Vorschlags-Anzahl** je Anfrage,

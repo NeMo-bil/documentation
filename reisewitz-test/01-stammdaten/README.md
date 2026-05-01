@@ -10,7 +10,7 @@ Grundlage für die Fahrtenplanung.
 | Datei | Domänenobjekt | Beschreibung |
 |---|---|---|
 | [Einstiegspunkt](01-accesspoint.md) | AccessPoint | Definierte Ein-/Ausstiegsorte (z. B. Bahnhof) |
-| [Kopplungsort](02-chaininglocation.md) | ChainingLocation | Orte, an denen Cab und Pro gekoppelt werden |
+| [Kopplungsort](02-chaininglocation.md) | ChainingLocation | Orte, an denen Cab und Pro per Kupplung verbunden oder voneinander gelöst werden |
 | [Betriebsgebiet](03-operationarea.md) | OperationArea | Geografisches Polygon der Servicezone |
 | [Parkplatz](04-parkinglocation.md) | ParkingLocation | Wartepunkte für Fahrzeuge |
 | [Planungskonfiguration](05-planning-configuration.md) | PlanningConfiguration | Globale Optimierer-Parameter |

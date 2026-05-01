@@ -9,10 +9,12 @@ bei ungültigen oder nicht vorhandenen Daten.
 ## Hintergrund
 
 Ein **Cab** ist das eigentliche Personenfahrzeug, das Fahrgäste von
-ihrem Start zum Ziel bringt. Cabs sind autonom und können:
+ihrem Start zum Ziel bringt. Cabs fahren autonom und werden
+**elektrisch** angetrieben. Sie können:
 - direkt einzeln fahren (Kurzstrecke innerhalb des Betriebsgebiets),
-- auf einem **Pro** mitfahren, um auf Schnellstraßen längere Strecken
-  energieeffizient zurückzulegen.
+- per Kupplung an ein **Pro** angehängt werden, um auf längeren
+  Strecken den eigenen Akku zu schonen — über dieselbe Kupplung wird
+  das Cab während der Fahrt vom Pro nachgeladen.
 
 Jedes Cab besitzt:
 - eine eindeutige Kennung und ein Kennzeichen,
